@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace AmatoSplash
 {
+    //https://github.com/arvinboggs/BlazorGitHubPages seguito la seguente linea.
     public class Program
     {
         public static async Task Main(string[] args)
