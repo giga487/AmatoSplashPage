@@ -24,7 +24,7 @@ jobs:
         # Aggiunto --no-build perché l'azione di pubblicazione lo fa già
         # Se il tuo file .csproj non è nella radice, usa una path:
         # run: dotnet publish YourProject/AmatoSplash.csproj -c Release -o release
-        run: dotnet publish AmatoSplash.csproj -c Release -o release
+        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c Release -o release
 
       # 4. Aggiungi il tuo passo di deploy, ad esempio con GitHub Pages
       - name: Deploy to GitHub Pages
