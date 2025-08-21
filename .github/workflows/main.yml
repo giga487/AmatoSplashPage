@@ -1,6 +1,5 @@
 name: Deploy to GitHub Pages
 
-# Run workflow on every push to the master branch
 on:
   workflow_dispatch:
   push:
@@ -8,18 +7,29 @@ on:
 
 jobs:
   deploy-to-github-pages:
-    # use ubuntu-latest image to run steps on
     runs-on: ubuntu-latest
     steps:
-    # uses GitHub's checkout action to checkout code form the master branch
-    - uses: actions/checkout@v2
-    
-    # sets up .NET Core SDK 3.1
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: "8.0.x"
+      # 1. Aggiornato a una versione più recente e sicura dell'azione di checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # publishes Blazor project to the release-folder
-    - name: Publish .NET Core Project
-      run: dotnet publish AmatoSplash.csproj -c Release -o release --nolog
+      # 2. Aggiornato a una versione moderna dell'azione di setup .NET
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+
+      # 3. Pubblica il progetto Blazor in una cartella di rilascio
+      - name: Publish Blazor Project
+        # Aggiunto --no-build perché l'azione di pubblicazione lo fa già
+        # Se il tuo file .csproj non è nella radice, usa una path:
+        # run: dotnet publish YourProject/AmatoSplash.csproj -c Release -o release
+        run: dotnet publish AmatoSplash.csproj -c Release -o release
+
+      # 4. Aggiungi il tuo passo di deploy, ad esempio con GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./release/wwwroot/ # La cartella di output di Blazor WebAssembly
