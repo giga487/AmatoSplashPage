@@ -1,6 +1,3 @@
-# This is ".github/workflows/gh-pages.yml" file.
-# This is an EXAMPLE of "GitHub Actions Workflow file".
-
 name: github pages
 
 on:
@@ -19,18 +16,16 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
-      - name: Install .NET WebAssembly Tools
-        run: dotnet workload install wasm-tools
+          dotnet-version: 9.0.x
 
       # Publish the site
       - name: Publish
-        run: dotnet publish {YourSolution}.sln -c:Release -o:publish -p:GHPages=true
+        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c:Release -o:public -p:GHPages=true
 
       # Deploy the site
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: publish/wwwroot
+          publish_dir: public/wwwroot
           force_orphan: true
