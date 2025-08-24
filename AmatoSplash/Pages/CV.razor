@@ -2,7 +2,27 @@
 
 <PageTitle>Curriculum vitae</PageTitle>
 
-@* <iframe src="AmatoCV.pdf" style="width: 100%; height: 100vh; border: none;">
-    <p>Sorry, try to download here: <a href="AmatoCV.pdf">click here</a>.</p>
-</iframe> *@
+@if (File.Exists(AmatoCvFileName))
+{
+    <iframe src="amatocv.pdf" style="width: 100%; height: 100vh; border: none;">
+        <p>Sorry, try to download here: <a href="amatocv.pdf">click here</a>.</p>
+    </iframe>
+}
+else
+{
+    <p>Files in folder: @GetFilesInFolder()</p>
+}
 
+@code{
+    public string AmatoCvFileName = "amatocv.pdf";
+
+    public string GetFilesInFolder()
+    {
+        string files = "";
+        foreach (string file in Directory.GetFiles(Environment.CurrentDirectory))
+        {
+            files += file + "\n";
+        }
+        return files;
+    }
+}
