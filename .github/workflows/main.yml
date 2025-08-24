@@ -1,37 +1,46 @@
-name: github pages
+name: Deploy Blazor App to GitHub Pages
 
 on:
   push:
     branches:
-      - master
+      - master # Assicurati che il tuo branch principale si chiami 'master'
   workflow_dispatch:
-  
+
+# Permessi corretti per il metodo di deploy moderno
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Checkout the code
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # Install .NET SDK
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 8.0.x # Usa la versione del tuo progetto
 
-      # Publish the site
-      - name: Publish
-        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c:Release -o:public -p:GHPages=true
+      # 1. Pubblica il progetto specificando esplicitamente il BaseHref
+      #    Questo è fondamentale per il corretto funzionamento su GitHub Pages
+      - name: Publish .NET Project
+        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c Release -o public /p:BaseHref=/AmatoSplashPage/
 
-      # Deploy the site
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+      # 2. Aggiunge un file .nojekyll per disabilitare Jekyll
+      - name: Add .nojekyll file
+        run: touch public/wwwroot/.nojekyll
+
+      # 3. Carica i file del sito come "artefatto"
+      #    Questo è il passaggio che ti permetterà di vedere l'artefatto nella UI
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public/wwwroot
-          force_orphan: true
+          path: public/wwwroot
+
+      # 4. Esegue il deploy dell'artefatto sui server di GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
