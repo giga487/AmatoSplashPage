@@ -27,7 +27,7 @@ jobs:
       # 1. Pubblica il progetto specificando esplicitamente il BaseHref
       #    Questo è fondamentale per il corretto funzionamento su GitHub Pages
       - name: Publish .NET Project
-        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c Release -o public /p:BaseHref=/AmatoSplashPage/
+        run: dotnet publish AmatoSplash/AmatoSplash.csproj -c Release -o public
 
       # 2. Aggiunge un file .nojekyll per disabilitare Jekyll
       - name: Add .nojekyll file
