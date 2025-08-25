@@ -101,3 +101,28 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+.page-container {
+    display: flex;
+    height: 90vh; /* 100% dell'altezza della finestra del browser */
+}
+
+.side-menu {
+    width: 250px;
+    flex-shrink: 0;
+    padding: 1rem;
+    background-color: darkorange;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    padding: 1.5rem; 
+}
+
+.download-link {
+    margin-top: auto; /* La magia è qui! */
+}

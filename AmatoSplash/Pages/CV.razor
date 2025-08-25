@@ -2,7 +2,163 @@
 
 <PageTitle>Curriculum vitae</PageTitle>
 
-@if (File.Exists(AmatoCvFileName))
+<div class="page-container">
+
+    <nav class="side-menu">
+        <h4>Pierluigi Amato</h4>
+        <a class="d-block mb-2" href="/cv/#section1">Who am I</a>
+        <a class="d-block mb-2" href="/cv/#section2">Jobs</a>
+        <a class="d-block mb-2" href="/cv/#section3">Education</a>
+        <a class="d-block mb-2" href="/cv/#section4">University Project</a>
+        <a class="d-block mb-2" href="/cv/#section5">Personal Project</a>
+        <a class="d-block mb-2 download-link" href="amatocv.pdf" download="amatocv.pdf">Download PDF</a>
+    </nav>
+
+    <main class="main-content">
+
+        <section class="scroll-section" id="section1">
+            <h2>Who am I</h2>
+            <p>
+                Enthusiastic and dedicated, I worked as a Software Engineer Consultant at Leonardo in La Spezia, Italy. My main ambition is to
+                find solutions in the company’s core systems and to develop a mature and responsible approach in any task I undertake. I have
+                improved my skills in real-time programming, linux operating systems and communication protocols. Throughout my professional
+                career, I have improved my ability to use C and C++ combined with Matlab and Python for the purposes of data visualization.
+                From my experience, versioning tools are an essential part of successful teamwork. rom August 2022 to January 2024 I worked
+                as a Software Engineer working on 6-DOF Robots using Kawasaki, Fanuc. In this year I did the design and development of the
+                company framework used on all the latest software releases, integrating many external libraries such as MySql, Halcon, OPC,
+                Kawasaki. Since January 2024, I have been working as a software engineer in the maritime industry at Fincantieri NexTech. During
+                this period, I developed analytical skills and teamwork abilities with a group of software engineers, with whom I am working on
+                implementing a SCADA system that will enable future ships to travel with more cybersecurity-aware systems.
+                Experienced in developing a range of solutions, from web applications to real-time systems 
+                for communication between microservices and on-premise software.
+
+            </p>
+            @* <div style="height: 500px;"></div> *@
+        </section>
+
+        <section class="scroll-section" id="section2">
+            <h2>Jobs</h2>
+            <p>
+                Software Engineer, Fincantieri NexTech Pisa, 2/24 - now
+                <ul>
+                    <li>Web Application with Blazor Web Assembly, Web Server, MVVM</li>
+                    <li>Asp .net core API</li>
+                    <li>grpc, https, redis and more software for creating a micro service architecture.</li>
+                    <li>developing with blazor and C#, in the .net core 8-9</li>
+                    <li>using Unit test tools for testing.</li>
+                    <li>advanced analysis, testing and implementation of a real-time SCADA system.</li>
+                    <li>Design pattern and Documentation.</li>
+                    <li>OPC-UA, OPC-DA and ABB Plc’s environment</li>
+                </ul>
+
+                Robotics and Automation Engineer, Robot System Automation, 08/22-01/24
+                <ul>
+
+                    <li>SKIA 2D graphics, used for custom USER INTERFACE</li>
+                    <li>Matlab and Simulink for testing with hardware in the loop.</li>
+                    <li>Desktop Application in C# for Integration with Robot</li>
+                    <li>Company Software Version Manager (GITHUB)</li>
+                    <li>C#, Custom Vision system with open Go Pro</li>
+                    <li>Develop in C# .framework 4.8.1, Entity Framework, Polymorphism, Modbus PLC, Design Patterns: Builder, State, Observer</li>
+                    <li>Custom Keyboard in C# .framework 4.8.1, Windows API.</li>
+                    <li>Halcon Vision integration and pattern recognition for custom Scanner in C#, WPF in .net framework 4.8, XAML.</li>
+                    <li>C# Server with OPC-UA Protocol.</li>
+                    <li>Asp .net core API</li>
+                </ul>
+                Software Test Engineer, Akka technologies, at Mermec, AngelStar Company, San Piero a Grado (PI), Railway System, 09/21-
+                08/22:
+                <ul>
+                    <li>Develop of Python log parser, OOP</li>
+                </ul>
+                Software Engineer, Akka technologies, at Leonardo, La Spezia, Defensive Naval Systems, 2019-9/2021:
+                <ul>
+                <li>Develop of features for Real-time Operating System, Debug, log Analysis, Integrity Tests and Unit Tests</li>
+                <li>TCP-IP, UDP sockets</li>
+                <li>Mil-Std 498 Documents</li>
+                <li>Porting to UNIX, Linux and Windows</li>
+                <li>LabWindows/CVI</li>
+                <li>Customer logistic supports</li>
+                <li>Windows Provisioning (Power-Shell) and Unix bash scripts</li>
+                <li>Utilities software in C++ (QT) and C# console application.</li>
+                </ul>
+                • Talentika (Start-up) in Rosignano Solvay, 2018-2019
+            </p>
+            @* <div style="height: 500px;"></div> *@
+        </section>
+
+        <section class="scroll-section" id="section3">
+            <h2>Education</h2>
+            <p>M.Sc, University of Pisa, Mechatronics Engineering, 2015-2019</p>
+            <p>Link at the relative article: <a href="https://ieeexplore.ieee.org/document/10016730" target="_blank">here</a></p>
+            @* <div style="height: 500px;"></div> *@
+        </section>
+        <section class="scroll-section" id="section4">
+            <h2>University Projects</h2>
+            <ul>
+                <li>Master Thesis at SSSUP:</li>
+                <p>
+                    <b>Improving GNSS-Free train localization by integrating odometry with inertial data and track information.</b>
+                    In collaboration with Ansaldo-Hitachi and Scuola Superiore Sant’Anna, I’ve studied and developed a method for the GNSS-Free
+                    localization of a railway system by analyzing the characteristics of the route and the dynamics of the train. A railway simulator
+                    with dynamics, control and a set of tools for the analysis of real data have been developed.
+                </p>
+                <li>
+                    <b>Inverted pendulum with inertial wheel:</b>
+                    Designing, simulating and constructing an inverse pendulum with inertial wheels. Generating the control system, using Python
+                    to test the effectiveness of the IMU as well as using OPEN GL and Multi-thread:
+                </li>
+                <li>
+                    <b>Indoor Localization</b>
+                    Designing a set of Embedded systems on Arm M4 using an Ultra Wide Band antenna. The systems used
+                    triangulation to locate a drone within an area not covered by GPS signal.
+                </li>
+                <li>
+                    <b>Real-time</b>
+                    Designing and developing a videogame with hard-real time problems. Process analysis of a real-time system with
+                    Allegro graphic tools.
+                </li>
+                <li>
+                    <b>Haptic Manipulation</b>
+                    Studying, analysing and controlling a haptic manipulator, using QT libraries. The device supplied lacked a
+                    user interface and a control system.
+                </li>
+                <li>
+                    <b>Robust Control</b>
+                    Controlling of an uncertain systems with H-inf, H-2, 𝜇 using Matlab. Control of fully actuated, not linear for an
+                    Handle Robots.
+                </li>
+            </ul>
+        </section>
+        <section class="scroll-section" id="section5">
+            <h2>Personal Projects</h2>
+                <ul>
+                <li><b>GitHub CV:</b> more of an engineer than a designer, but focused on effective solutions.</li>
+                <li><b>GitHub profile:</b><a href="https://github.com/giga487" target="_blank">here</a></li>
+                <li><b>RR planar joint:</b> CASADI Searching for an optimal solution, Casadi. Python</li>
+                <li><b>Godot Project</b> on a single player with Isometric graphics</li>
+                <li>
+                    <b>Ultima Online free server:</b>  develop of massive multiplayer game, for fun project, not yet active.
+                    <ul>
+                            <li>TCP/IP Client/Server custom communication</li>
+                            <li>Design and implementation of new features such as automated game events with match-making and simple AI</li>
+                            <li>C# expert, Design Patterns, Events, Async, Await, Multi-threading</li>
+                            <li>ServUO (backend) Linux porting for MONO</li>
+                            <li>Database and Discord Rest API’s</li>
+                            <li>Multiplayer C# OOP oriented to optimization, hash map, dictionaries and list</li>
+                            <li>Develop on ClassicUO (custom game client) with XNA graphics engine</li>
+                            <li>Unit test and Integrity test using Visual Studio 2022</li>
+                            <li>Debugging, Profiling and performance testing using Visual Studio 2022</li>
+                    </ul>
+                </li>
+
+            </ul>
+            @* <div style="height: 500px;"></div> *@
+        </section>
+
+    </main>
+
+</div>
+@* @if (File.Exists(AmatoCvFileName))
 {
     <iframe src="amatocv.pdf" style="width: 100%; height: 100vh; border: none;">
         <p>Sorry, try to download here: <a href="amatocv.pdf">click here</a>.</p>
@@ -11,7 +167,7 @@
 else
 {
     <p>CV not found</p>
-}
+} *@
 
 @code{
     public string AmatoCvFileName = "amatocv.pdf";
