@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace AmatoSplash
 {
-    //https://github.com/arvinboggs/BlazorGitHubPages seguito la seguente linea.
+
+    //https://giga487.github.com/amatoSplashPage/
     public class Program
     {
+        public static string Address = "/amatoSplashPage/";
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
