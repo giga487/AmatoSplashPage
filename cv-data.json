@@ -1,0 +1,209 @@
+{
+  "Contact": {
+    "Email": "amato.pierluigi@gmail.com",
+    "LinkedIn": "https://www.linkedin.com/in/pierluigi-amato-b219ab45",
+    "Location": "Cascina (PI), Tuscany, Italy",
+    "Phone": "+39 3285822051",
+    "BirthDate": "04/07/1987"
+  },
+  "Summary": [
+    "Enthusiastic and dedicated Software Engineer with a solid background in real-time programming, Linux operating systems, and communication protocols. Throughout my career, I've developed a range of solutions—from web applications to real-time systems for communication between microservices and on-premise software.",
+    "I honed my skills working as a Software Engineer Consultant at Leonardo in La Spezia, using C, C++, Matlab, and Python. Later, I spent time developing software for 6-DOF Robots (Kawasaki, Fanuc), where I designed a core framework integrating MySql, Halcon, and OPC technologies.",
+    "**Currently**, I work at Fincantieri NexTech in the maritime industry. I am heavily focused on the design and development of a C#-based ecosystem of applications dedicated to the automation management of modern ships. Working alongside a talented team of engineers, I am also implementing an advanced SCADA system designed to enable future ships to travel with robust, cybersecurity-aware systems. [GitHub Page](https://giga487.github.io/AmatoSplashPage/)"
+  ],
+  "Jobs": [
+    {
+      "Title": "Software Engineer",
+      "Company": "Fincantieri NexTech Pisa",
+      "Date": "2/24-now",
+      "Tasks": [
+        "Web Application with Blazor Web Assembly, Web Server, MVVM",
+        "Asp .net core API",
+        "grpc, https, managing heavy data flow.",
+        "developing with blazor and C#, in the .net core 8-9",
+        "using Unit test tools for testing.",
+        "advanced analysis, testing and implementation of a real-time SCADA system.",
+        "Design pattern and Documentation.",
+        "OPC-UA, OPC-DA and ABB Plc's environment",
+        "custom in-memory database (IMDB) for real-time dispatch of data in C#"
+      ]
+    },
+    {
+      "Title": "Robotics and Automation Engineer",
+      "Company": "Robot System Automation",
+      "Date": "08/22-01/24",
+      "Tasks": [
+        "[SKIA 2D graphics](https://skia.org/), used for custom USER INTERFACE",
+        "Matlab and Simulink for testing with hardware in the loop.",
+        "Desktop Application in C# for Integration with Robot",
+        "Company Software Version Manager (**GITHUB**)",
+        "C#, Custom Vision system with open Go Pro",
+        "Develop in C# .framework 4.8.1, Entity Framework, Polymorphism, Modbus PLC, Design Patterns: Builder, State, Observer",
+        "Custom Keyboard in C# .framework 4.8.1, Windows API.",
+        "[Halcon](https://www.mvtec.com/products/halcon) Vision integration and pattern recognition for custom Scanner in C#, WPF in .net framework 4.8, XAML.",
+        "C# Server with OPC-UA Protocol.",
+        "Asp .net core API"
+      ]
+    },
+    {
+      "Title": "Software Test Engineer",
+      "Company": "Akka technologies, at Mermec, AngelStar Company, San Piero a Grado (PI), Railway System",
+      "Date": "09/21-08/22",
+      "Tasks": [
+        "Develop of Python log parser, OOP"
+      ]
+    },
+    {
+      "Title": "Software Engineer",
+      "Company": "Akka technologies, at Leonardo, La Spezia, Defensive Naval Systems",
+      "Date": "2019-9/2021",
+      "Tasks": [
+        "Develop of features for Real-time Operating System, Debug, log Analysis, Integrity Tests and Unit Tests",
+        "TCP-IP, UDP sockets",
+        "Mil-Std 498 Documents",
+        "Porting to UNIX, Linux and Windows",
+        "LabWindows/CVI",
+        "Customer logistic supports",
+        "Windows Provisioning (Power-Shell) and Unix bash scripts",
+        "Utilities software in C++ (QT) and C# console application."
+      ]
+    },
+    {
+      "Title": "Talentika (Start-up) in Rosignano Solvay",
+      "Company": "",
+      "Date": "2018-2019",
+      "Tasks": []
+    }
+  ],
+  "Education": [
+    {
+      "Title": "M.Sc, University of Pisa, Mechatronics Engineering",
+      "Date": "2015-2019",
+      "Description": "link to the relative article: [here](https://ieeexplore.ieee.org/document/10016730)"
+    },
+    {
+      "Title": "Engineering professional qualification",
+      "Date": "",
+      "Description": ""
+    }
+  ],
+  "TechnicalSkills": [
+    {
+      "Category": "Tools",
+      "Details": "MatLab and Simulink, Git, Visual studio: Profiling, Unit Test, Integrity Test"
+    },
+    {
+      "Category": "Sistemi operativi",
+      "Details": "OS UNIX, real-time"
+    },
+    {
+      "Category": "Programming languages",
+      "Details": "C, C++, Python, C#"
+    },
+    {
+      "Category": "Qt",
+      "Details": "Qt Gui, MVC and design pattern."
+    },
+    {
+      "Category": "Cad 3d",
+      "Details": "SolidWorks"
+    },
+    {
+      "Category": "Lab Tools",
+      "Details": ""
+    }
+  ],
+  "Projects": [
+    {
+      "Title": "GitHub CV",
+      "Description": "more of an engineer than a designer, but focused on effective solutions.",
+      "Tasks": []
+    },
+    {
+      "Title": "GitHub profile",
+      "Description": "[giga487](https://github.com/giga487)",
+      "Tasks": []
+    },
+    {
+      "Title": "RR planar joint, CASADI",
+      "Description": "Searching for an optimal solution, Casadi. Python",
+      "Tasks": []
+    },
+    {
+      "Title": "Standford Manipulator Control",
+      "Description": "",
+      "Tasks": []
+    },
+    {
+      "Title": "Unity game development",
+      "Description": "",
+      "Tasks": [
+        "Working on a Unity3D Game, using Physics",
+        "Backend analysis tools, python, typescript",
+        "New Physics design, new ballistic for gaming design"
+      ]
+    },
+    {
+      "Title": "Ultima Online free server",
+      "Description": "develop of massive multiplayer game, for fun project, actually active.",
+      "Tasks": [
+        "TCP/IP Client/Server custom communication",
+        "Design and implementation of new features such as automated game events with match-making and simple AI",
+        "C# expert, Design Patterns, Events, Async, Await, Multi-threading",
+        "ServUO (backend) Linux porting for MONO",
+        "Database and Discord Rest API's",
+        "Multiplayer C# OOP oriented to optimization, hash map, dictionaries and list",
+        "Develop on ClassicUO (custom game client) with XNA graphics engine",
+        "Unit test and Integrity test using Visual Studio 2022",
+        "Debugging, Profiling and performance testing using Visual Studio 2022"
+      ]
+    }
+  ],
+  "UniversityProjects": [
+    {
+      "Category": "Master Thesis SSSUP",
+      "Title": "Improving GNSS-Free train localization by integrating odometry with inertial data and track information.",
+      "Description": "In collaboration with Ansaldo-Hitachi and Scuola Superiore Sant’Anna, I’ve studied and developed a method for the GNSS-Free localization of a railway system by analyzing the characteristics of the route and the dynamics of the train. A **railway simulator** with dynamics, control and a set of tools for the analysis of real data have been developed."
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Inverted pendulum with inertial wheel",
+      "Description": "Designing, simulating and constructing an inverse pendulum with inertial wheels. Generating the control system, using Python to test the effectiveness of the IMU as well as using OPEN GL and Multi-thread: [YouTube](https://www.youtube.com/watch?v=wL0Aum5eXEo)"
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Indoor Localization",
+      "Description": "Designing a set of Embedded systems on Arm M4 using an Ultra Wide Band antenna. The systems used triangulation to locate a drone within an area not covered by GPS signal."
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Real-time",
+      "Description": "Designing and developing a videogame with hard-real time problems. Process analysis of a real-time system with Allegro graphic tools."
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Haptic Manipulation",
+      "Description": "Studying, analysing and controlling a haptic manipulator, using QT libraries. The device supplied lacked a user interface and a control system."
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Path Planning",
+      "Description": "Developing a path planning control for an airplane."
+    },
+    {
+      "Category": "MS Mechatronics",
+      "Title": "Robust Control",
+      "Description": "Controlling of an uncertain systems with H-inf, H-2, μ using Matlab. Control of fully actuated, not linear for an Handle Robots."
+    },
+    {
+      "Category": "Bachelor's Degree",
+      "Title": "Progetto e realizzazione di una scheda per misure acustiche PV orientate a funzioni di localizzazione",
+      "Description": "Design and Analysis of an electronic system for the study of audiometric sources using PV sensors."
+    }
+  ],
+  "OtherSkills": {
+    "Software": "MatLab, SolidWorks, Eclipse (Ide), Operating systems",
+    "Languages": "English: B1+ CLI, Pisa University",
+    "LATEX": "This document in writed in LaTeX"
+  }
+}
