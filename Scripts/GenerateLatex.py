@@ -10,6 +10,7 @@ def escape_latex(text):
     text = text.replace("$", r"\$")
     text = text.replace("#", r"\#")
     text = text.replace("_", r"\_")
+    text = text.replace("μ", r"$\mu$")
     
     # Simple markdown to latex conversion for known elements
     text = text.replace("**Currently**", r"\textbf{Currently}")
