@@ -1,0 +1,18 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="20" HorizontalAlignment="HorizontalAlignment.Center" Style="margin-top: 50px; text-align: center;">
+    <FluentLabel Typo="Typography.PageTitle" Weight="FontWeight.Bold">Pierluigi Amato</FluentLabel>
+    <FluentLabel Typo="Typography.H4">Software Engineer</FluentLabel>
+    <FluentDivider />
+    
+    <FluentLabel Typo="Typography.Body">
+        Right now, I'm testing Blazor WASM with Fluent UI by building a site that displays my auto-generated CV from a GitHub repository.
+    </FluentLabel>
+
+    <FluentAnchor Href="mailto:amato.pierluigi@gmail.com?subject=AskSomethingViaSite" Appearance="Appearance.Accent">
+        <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Slot="start" Color="Color.Lightweight" />
+        Send me an email
+    </FluentAnchor>
+</FluentStack>

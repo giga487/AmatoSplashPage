@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmatoSplash", "AmatoSplash.csproj", "{78A40709-14B1-4401-A52D-0B812D3AF151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmatoFluent", "..\AmatoFluent\AmatoFluent.csproj", "{D8B82276-9BAA-4F3D-A35D-82AEB64B259E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{78A40709-14B1-4401-A52D-0B812D3AF151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78A40709-14B1-4401-A52D-0B812D3AF151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78A40709-14B1-4401-A52D-0B812D3AF151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B82276-9BAA-4F3D-A35D-82AEB64B259E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B82276-9BAA-4F3D-A35D-82AEB64B259E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B82276-9BAA-4F3D-A35D-82AEB64B259E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B82276-9BAA-4F3D-A35D-82AEB64B259E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

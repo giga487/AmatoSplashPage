@@ -1,0 +1,175 @@
+@page "/cv"
+
+<PageTitle>Curriculum vitae</PageTitle>
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="20" Style="padding: 20px;">
+    
+    <FluentLabel Typo="Typography.PageTitle">Pierluigi Amato</FluentLabel>
+    <FluentLabel Typo="Typography.H4">Curriculum Vitae</FluentLabel>
+    <FluentDivider />
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Contact</FluentLabel>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Color="Color.Neutral" /> 
+                <a href="mailto:amato.pierluigi@gmail.com?subject=AskSomethingViaSite" style="color: var(--accent-fill-rest); text-decoration: none;">amato.pierluigi@gmail.com</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Color="Color.Neutral" /> 
+                <a href="https://www.linkedin.com/in/pierluigi-amato-b219ab45/" target="_blank" style="color: var(--accent-fill-rest); text-decoration: none;">LinkedIn Profile</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Location())" Color="Color.Neutral" /> 
+                <span style="color: var(--neutral-foreground-rest);">Pisa, Italy (Originally from Livorno)</span>
+            </div>
+            <div style="margin-top: 5px;">
+                <FluentAnchor Href="/AmatoCV.pdf" Download="amatocv.pdf" Appearance="Appearance.Accent">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.DocumentPdf())" Slot="start" Color="Color.Lightweight" /> Download PDF
+                </FluentAnchor>
+            </div>
+        </div>
+    </FluentCard>
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Who am I</FluentLabel>
+        <div style="margin-top: 10px; line-height: 1.6; color: var(--neutral-foreground-rest);">
+            <p>
+                Enthusiastic and dedicated Software Engineer with a solid background in real-time programming, Linux operating systems, and communication protocols. Throughout my career, I've developed a range of solutions—from web applications to real-time systems for communication between microservices and on-premise software.
+            </p>
+            <p>
+                I honed my skills working as a Software Engineer Consultant at Leonardo in La Spezia, using C, C++, Matlab, and Python. Later, I spent time developing software for 6-DOF Robots (Kawasaki, Fanuc), where I designed a core framework integrating MySql, Halcon, and OPC technologies.
+            </p>
+            <p>
+                <strong>Currently</strong>, I work at Fincantieri NexTech in the maritime industry. I am heavily focused on the design and development of a C#-based ecosystem of applications dedicated to the automation management of modern ships. Working alongside a talented team of engineers, I am also implementing an advanced SCADA system designed to enable future ships to travel with robust, cybersecurity-aware systems.
+            </p>
+        </div>
+    </FluentCard>
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Jobs</FluentLabel>
+        
+        <div style="margin-top: 15px;">
+            <FluentLabel Typo="Typography.H4">Software Engineer, Fincantieri NexTech Pisa</FluentLabel>
+            <FluentLabel Typo="Typography.Body" Color="Color.Neutral">Feb 2024 - Present</FluentLabel>
+            <ul style="margin-top: 5px;">
+                <li>Web Application with Blazor Web Assembly, Web Server, MVVM</li>
+                <li>Asp .net core API</li>
+                <li>grpc, https, maging heavy data flow</li>
+                <li>developing with blazor and C# in .net core 8-9</li>
+                <li>using Unit test tools for testing</li>
+                <li>advanced analysis, testing and implementation of a real-time SCADA system</li>
+                <li>Design pattern and Documentation</li>
+                <li>OPC-UA, OPC-DA and ABB Plc’s environment</li>
+                <li>custom in-memory database (IMDB) for real-time dispatch of data in C#</li>
+            </ul>
+        </div>
+        <FluentDivider Style="margin: 15px 0;" />
+
+        <div>
+            <FluentLabel Typo="Typography.H4">Robotics and Automation Engineer, Robot System Automation</FluentLabel>
+            <FluentLabel Typo="Typography.Body" Color="Color.Neutral">Aug 2022 - Jan 2024</FluentLabel>
+            <ul style="margin-top: 5px;">
+                <li>SKIA 2D graphics, used for custom USER INTERFACE</li>
+                <li>Matlab and Simulink for testing with hardware in the loop</li>
+                <li>Desktop Application in C# for Integration with Robot</li>
+                <li>Company Software Version Manager (GITHUB)</li>
+                <li>C#, Custom Vision system with open Go Pro</li>
+                <li>Develop in C# .framework 4.8.1, Entity Framework, Polymorphism, Modbus PLC, Design Patterns: Builder, State, Observer</li>
+                <li>Custom Keyboard in C# .framework 4.8.1, Windows API</li>
+                <li>Halcon Vision integration and pattern recognition for custom Scanner in C#, WPF in .net framework 4.8, XAML</li>
+                <li>C# Server with OPC-UA Protocol</li>
+                <li>Asp .net core API</li>
+            </ul>
+        </div>
+        <FluentDivider Style="margin: 15px 0;" />
+
+        <div>
+            <FluentLabel Typo="Typography.H4">Software Test Engineer, Akka technologies at Mermec</FluentLabel>
+            <FluentLabel Typo="Typography.Body" Color="Color.Neutral">Sep 2021 - Aug 2022</FluentLabel>
+            <ul style="margin-top: 5px;">
+                <li>Develop of Python log parser, OOP</li>
+            </ul>
+        </div>
+        <FluentDivider Style="margin: 15px 0;" />
+
+        <div>
+            <FluentLabel Typo="Typography.H4">Software Engineer, Akka technologies at Leonardo</FluentLabel>
+            <FluentLabel Typo="Typography.Body" Color="Color.Neutral">2019 - Sep 2021</FluentLabel>
+            <ul style="margin-top: 5px;">
+                <li>Develop of features for Real-time Operating System, Debug, log Analysis, Integrity Tests and Unit Tests</li>
+                <li>TCP-IP, UDP sockets</li>
+                <li>Mil-Std 498 Documents</li>
+                <li>Porting to UNIX, Linux and Windows</li>
+                <li>LabWindows/CVI</li>
+                <li>Customer logistic supports</li>
+                <li>Windows Provisioning (Power-Shell) and Unix bash scripts</li>
+                <li>Utilities software in C++ (QT) and C# console application</li>
+            </ul>
+        </div>
+    </FluentCard>
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Education</FluentLabel>
+        <div style="margin-top: 10px;">
+            <FluentLabel Typo="Typography.Body">
+                <FluentIcon Value="@(new Icons.Regular.Size16.HatGraduation())" /> M.Sc, University of Pisa, Mechatronics Engineering, 2015-2019
+            </FluentLabel>
+            <FluentAnchor Href="https://ieeexplore.ieee.org/document/10016730" Target="_blank" Appearance="Appearance.Stealth">
+                <FluentIcon Value="@(new Icons.Regular.Size16.Link())" Slot="start" /> Read the related IEEE article here
+            </FluentAnchor>
+        </div>
+    </FluentCard>
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">University Projects</FluentLabel>
+        <ul style="margin-top: 15px; line-height: 1.6;">
+            <li><b>Master Thesis at SSSUP: Improving GNSS-Free train localization by integrating odometry with inertial data and track information.</b><br/>
+                In collaboration with Ansaldo-Hitachi and Scuola Superiore Sant’Anna, I’ve studied and developed a method for the GNSS-Free localization of a railway system by analyzing the characteristics of the route and the dynamics of the train. A railway simulator with dynamics, control and a set of tools for the analysis of real data have been developed.
+            </li>
+            <li><b>Inverted pendulum with inertial wheel:</b><br/>
+                Designing, simulating and constructing an inverse pendulum with inertial wheels. Generating the control system, using Python to test the effectiveness of the IMU as well as using OPEN GL and Multi-thread. (<a href="https://www.youtube.com/watch?v=wL0Aum5eXEo" target="_blank">YouTube video</a>)
+            </li>
+            <li><b>Indoor Localization:</b><br/>
+                Designing a set of Embedded systems on Arm M4 using an Ultra Wide Band antenna. The systems used triangulation to locate a drone within an area not covered by GPS signal.
+            </li>
+            <li><b>Real-time:</b><br/>
+                Designing and developing a videogame with hard-real time problems. Process analysis of a real-time system with Allegro graphic tools.
+            </li>
+            <li><b>Haptic Manipulation:</b><br/>
+                Studying, analysing and controlling a haptic manipulator, using QT libraries. The device supplied lacked a user interface and a control system.
+            </li>
+            <li><b>Robust Control:</b><br/>
+                Controlling of an uncertain systems with H-inf, H-2, µ using Matlab. Control of fully actuated, not linear for an Handle Robots.
+            </li>
+        </ul>
+    </FluentCard>
+
+    <FluentCard AreaRestricted="false">
+        <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Personal Projects</FluentLabel>
+        <ul style="margin-top: 15px; line-height: 1.6;">
+            <li><b>GitHub CV:</b> more of an engineer than a designer, but focused on effective solutions.</li>
+            <li>
+                <FluentAnchor Href="https://github.com/giga487" Target="_blank" Appearance="Appearance.Stealth">
+                   <FluentIcon Value="@(new Icons.Regular.Size16.Code())" Slot="start" /> <b>GitHub profile:</b> giga487
+                </FluentAnchor>
+            </li>
+            <li><b>RR planar joint:</b> CASADI Searching for an optimal solution. Python</li>
+            <li><b>Godot Project:</b> Single player game with Isometric graphics</li>
+            <li>
+                <b>Ultima Online free server:</b> Development of massive multiplayer game, fun project, not yet active.
+                <ul>
+                    <li>TCP/IP Client/Server custom communication</li>
+                    <li>Design and implementation of new features such as automated game events with match-making and simple AI</li>
+                    <li>C# expert, Design Patterns, Events, Async, Await, Multi-threading</li>
+                    <li>ServUO (backend) Linux porting for MONO</li>
+                    <li>Database and Discord Rest API’s</li>
+                    <li>Multiplayer C# OOP oriented to optimization, hash map, dictionaries and list</li>
+                    <li>Develop on ClassicUO (custom game client) with XNA graphics engine</li>
+                    <li>Unit test and Integrity test using Visual Studio 2022</li>
+                    <li>Debugging, Profiling and performance testing using Visual Studio 2022</li>
+                </ul>
+            </li>
+        </ul>
+    </FluentCard>
+</FluentStack>
