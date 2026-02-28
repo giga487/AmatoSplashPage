@@ -22,7 +22,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x # Usa la versione del tuo progetto
+          dotnet-version: 9.0.x # Usa la versione del tuo progetto
 
       # 1. Pubblica il progetto specificando esplicitamente il BaseHref
       #    Questo è fondamentale per il corretto funzionamento su GitHub Pages
