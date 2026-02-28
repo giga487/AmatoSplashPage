@@ -35,7 +35,7 @@ else
                     <FluentAnchor Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/AmatoFluent/wwwroot/AmatoCV.pdf" Download="amatocv.pdf" Appearance="Appearance.Accent" Target="_blank">
                         <FluentIcon Value="@(new Icons.Regular.Size20.DocumentPdf())" Slot="start" Color="Color.Lightweight" /> Download PDF
                     </FluentAnchor>
-                    <FluentAnchor Href="/sample-data/cv-data.json" Download="cv-data.json" Appearance="Appearance.Neutral">
+                    <FluentAnchor Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/cv-data.json" Download="cv-data.json" Appearance="Appearance.Neutral">
                         <FluentIcon Value="@(new Icons.Regular.Size20.Document())" Slot="start" Color="Color.Neutral" /> Download JSON Data
                     </FluentAnchor>
                 </div>
@@ -142,7 +142,7 @@ else
 }
 
 @code {
-    private CvData cvData;
+    private CvData? cvData;
 
     protected override async Task OnInitializedAsync()
     {
