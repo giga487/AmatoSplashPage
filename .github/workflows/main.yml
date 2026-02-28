@@ -24,14 +24,16 @@ jobs:
         with:
           dotnet-version: 9.0.x # Usa la versione del tuo progetto
 
-      # 1. Pubblica il progetto specificando esplicitamente il BaseHref
-      #    Questo è fondamentale per il corretto funzionamento su GitHub Pages
+      # 1. Pubblica il progetto
       - name: Publish .NET Project
         run: dotnet publish AmatoFluent/AmatoFluent.csproj -c Release -o public
 
-      # 2. Aggiunge un file .nojekyll per disabilitare Jekyll
-      - name: Add .nojekyll file
-        run: touch public/wwwroot/.nojekyll
+      # 2. Configura l'ambiente per GitHub Pages (NoJekyll, Base Href, 404)
+      - name: Setup GitHub Pages Environment
+        run: |
+          touch public/wwwroot/.nojekyll
+          sed -i 's/<base href="\/" \/>/<base href="\/AmatoSplashPage\/" \/>/g' public/wwwroot/index.html
+          cp public/wwwroot/index.html public/wwwroot/404.html
 
       # 3. Carica i file del sito come "artefatto"
       #    Questo è il passaggio che ti permetterà di vedere l'artefatto nella UI
