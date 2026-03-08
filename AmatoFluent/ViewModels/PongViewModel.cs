@@ -20,6 +20,16 @@ namespace AmatoFluent.ViewModels
         private DateTime lastFrameTime = DateTime.Now;
         private Queue<double> frameTimes = new Queue<double>(100);
 
+        private SKTypeface? _typeface;
+        private SKFont? _fontTitle;
+        private SKFont? _fontSub;
+        private SKFont? _fontFps;
+
+        private SKPaint? _paintText;
+        private SKPaint? _paintSubText;
+        private SKPaint? _paintFps;
+        private SKPaint? _paintBall;
+
         public event Action? OnStateChanged;
         private SKCanvasView? _canvas;
 		public PongViewModel()
@@ -142,6 +152,14 @@ namespace AmatoFluent.ViewModels
         public void Dispose()
         {
             timer?.Dispose();
+            _typeface?.Dispose();
+            _fontTitle?.Dispose();
+            _fontSub?.Dispose();
+            _fontFps?.Dispose();
+            _paintText?.Dispose();
+            _paintSubText?.Dispose();
+            _paintFps?.Dispose();
+            _paintBall?.Dispose();
         }
 
 		private void OnPaintSurface(SKPaintSurfaceEventArgs e)
@@ -157,6 +175,17 @@ namespace AmatoFluent.ViewModels
 				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 20, 5, 5, SKColors.OrangeRed));
 				Balls.Add(new Ball((CanvasWidth / 2f) + 50f, (CanvasHeight / 2f) + 50f, 15, -7, 6, SKColors.LightSeaGreen));
 				Balls.Add(new Ball((CanvasWidth / 2f) - 50f, (CanvasHeight / 2f) - 50f, 25, 4, -8, SKColors.Gold));
+				
+                _typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright) ?? SKTypeface.Default;
+                _fontTitle = new SKFont(_typeface);
+                _fontSub = new SKFont();
+                _fontFps = new SKFont();
+
+                _paintText = new SKPaint { Color = SKColors.White, IsAntialias = true };
+                _paintSubText = new SKPaint { Color = SKColors.LightGray, IsAntialias = true };
+                _paintFps = new SKPaint { Color = SKColors.Yellow, IsAntialias = true };
+                _paintBall = new SKPaint { IsAntialias = true, Style = SKPaintStyle.Fill };
+
 				_isInitialized = true;
 			}
 			else if (isResize)
@@ -170,71 +199,54 @@ namespace AmatoFluent.ViewModels
 			SKCanvas canvas = e.Surface.Canvas;
 			canvas.Clear(SKColor.Parse("#003366"));
 
-			using SKPaint paintBall = new SKPaint
-			{
-			    IsAntialias = true,
-			    Style = SKPaintStyle.Fill
-			};
+            if (_paintBall != null)
+            {
+			    foreach (Ball ball in Balls)
+			    {
+			        _paintBall.Color = ball.Color;
+			        canvas.DrawCircle(ball.X, ball.Y, ball.Radius, _paintBall);
+			    }
+            }
 
-			foreach (Ball ball in Balls)
-			{
-			    paintBall.Color = ball.Color;
-			    canvas.DrawCircle(ball.X, ball.Y, ball.Radius, paintBall);
-			}
+            if (_fontTitle != null && _paintText != null)
+            {
+			    string titleText = "Pong in Blazor Wasm";
+			    float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
+			    _fontTitle.Size = titleSize;
+			    
+			    while (_fontTitle.MeasureText(titleText) > CanvasWidth - 40 && _fontTitle.Size > 10)
+			    {
+			        _fontTitle.Size -= 1;
+			    }
 
-			string titleText = "Pong in Blazor Wasm";
-			float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
-			SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright) ?? SKTypeface.Default;
-			
-			using SKFont fontTitle = new SKFont(typeface, titleSize);
-			using SKPaint paintText = new SKPaint
-			{
-				Color = SKColors.White,
-				IsAntialias = true,
-			};
+			    float titleY = _fontTitle.Size + 20;
+			    canvas.DrawText(titleText, 20, titleY, _fontTitle, _paintText);
 
-			while (fontTitle.MeasureText(titleText) > CanvasWidth - 40 && fontTitle.Size > 10)
-			{
-			    fontTitle.Size -= 1;
-			}
+                if (_fontSub != null && _paintSubText != null)
+                {
+			        string subText = "Canvas test";
+			        float subSize = Math.Max(12f, CanvasWidth * 0.025f);
+			        _fontSub.Size = subSize;
 
-			float titleY = fontTitle.Size + 20;
-			canvas.DrawText(titleText, 20, titleY, fontTitle, paintText);
+			        while (_fontSub.MeasureText(subText) > CanvasWidth - 40 && _fontSub.Size > 8)
+			        {
+			            _fontSub.Size -= 1;
+			        }
 
-			string subText = "Canvas test";
-			float subSize = Math.Max(12f, CanvasWidth * 0.025f);
-			
-			using SKFont fontSub = new SKFont();
-			fontSub.Size = subSize;
+			        float subY = titleY + _fontSub.Size + 10;
+			        canvas.DrawText(subText, 20, subY, _fontSub, _paintSubText);
+                }
+            }
 
-			using SKPaint paintSubText = new SKPaint
-			{
-				Color = SKColors.LightGray,
-				IsAntialias = true,
-			};
+            if (_fontFps != null && _paintFps != null)
+            {
+			    string fpsText = $"FPS: {Math.Round(CurrentFps, 1)}";
+			    _fontFps.Size = 16f;
 
-			while (fontSub.MeasureText(subText) > CanvasWidth - 40 && fontSub.Size > 8)
-			{
-			    fontSub.Size -= 1;
-			}
-
-			float subY = titleY + fontSub.Size + 10;
-			canvas.DrawText(subText, 20, subY, fontSub, paintSubText);
-
-			string fpsText = $"FPS: {Math.Round(CurrentFps, 1)}";
-			
-			using SKFont fontFps = new SKFont();
-			fontFps.Size = 16f;
-
-			using SKPaint paintFps = new SKPaint
-			{
-				Color = SKColors.Yellow,
-				IsAntialias = true,
-			};
-
-			float fpsX = CanvasWidth - fontFps.MeasureText(fpsText) - 20;
-			float fpsY = CanvasHeight - 20;
-			canvas.DrawText(fpsText, fpsX, fpsY, fontFps, paintFps);
+			    float fpsX = CanvasWidth - _fontFps.MeasureText(fpsText) - 20;
+			    float fpsY = CanvasHeight - 20;
+			    canvas.DrawText(fpsText, fpsX, fpsY, _fontFps, _paintFps);
+            }
 		}
     }
 }
