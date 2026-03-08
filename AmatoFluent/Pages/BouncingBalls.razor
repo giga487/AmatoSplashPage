@@ -1,9 +1,9 @@
-@page "/pong"
+@page "/bouncingballs"
 @using AmatoFluent.ViewModels
-@inject PongViewModel ViewModel
+@inject BouncingBallsViewModel ViewModel
 @implements IDisposable
 
-<PageTitle>Pong con SkiaSharp</PageTitle>
+<PageTitle>Bouncing Balls con SkiaSharp</PageTitle>
 
 <div style="width: 100%; height: 85vh; min-height: 500px; background-color: #003366; overflow: hidden; border-radius: 8px;">
     <SKCanvasView @ref="_canvas" OnPaintSurface="ViewModel.OnPaintSurface" IgnorePixelScaling="false" style="width: 100%; height: 100%; display: block;" />

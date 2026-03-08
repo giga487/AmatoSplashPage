@@ -12,7 +12,7 @@ using SkiaSharp.Views.Blazor;
 namespace AmatoFluent.ViewModels
 {
     [SupportedOSPlatform("browser")]
-    public class PongViewModel : IDisposable
+    public class BouncingBallsViewModel : IDisposable
     {
         public List<Ball> Balls { get; private set; } = new List<Ball>();
         public double CurrentFps { get; private set; } = 0;
@@ -38,7 +38,7 @@ namespace AmatoFluent.ViewModels
 
         public event Action? OnStateChanged;
 
-		public PongViewModel()
+		public BouncingBallsViewModel()
         {
         }
 
@@ -203,7 +203,7 @@ namespace AmatoFluent.ViewModels
 
             if (_fontTitle != null && _paintText != null)
             {
-			    string titleText = "Pong in Blazor Wasm";
+			    string titleText = "Bouncing Balls in Blazor Wasm";
 			    float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
 			    _fontTitle.Size = titleSize;
 			    

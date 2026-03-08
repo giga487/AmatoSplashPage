@@ -19,7 +19,7 @@ namespace AmatoFluent
 			builder.Services.AddScoped((IServiceProvider sp) => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 			builder.Services.AddFluentUIComponents();
             
-			builder.Services.AddTransient<PongViewModel>();
+			builder.Services.AddTransient<BouncingBallsViewModel>();
 
 			await builder.Build().RunAsync();
 		}
