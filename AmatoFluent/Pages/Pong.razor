@@ -5,11 +5,8 @@
 
 <PageTitle>Pong con SkiaSharp</PageTitle>
 
-<h1>Pong in Blazor Wasm</h1>
-<p>Test di canvas SkiaSharp con pallina rimbalzante.</p>
-
-<div style="width: 800px; height: 600px; border: 1px solid black; background-color: #eee;">
-    <SKCanvasView @ref="_canvas" IgnorePixelScaling="true" />
+<div style="width: 100%; height: 85vh; min-height: 500px; background-color: #003366; overflow: hidden; border-radius: 8px;">
+    <SKCanvasView @ref="_canvas" IgnorePixelScaling="false" style="width: 100%; height: 100%; display: block;" />
 </div>
 
 @code {

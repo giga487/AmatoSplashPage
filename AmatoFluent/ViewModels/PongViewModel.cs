@@ -8,16 +8,13 @@ namespace AmatoFluent.ViewModels
 {
     public class PongViewModel : IDisposable
     {
-        public float BallX { get; private set; } = 400;
-        public float BallY { get; private set; } = 300;
-        public float Radius { get; private set; } = 20;
+        public List<Ball> Balls { get; private set; } = new List<Ball>();
         public double CurrentFps { get; private set; } = 0;
         
-        public int CanvasWidth { get; private set; } = 800;
-        public int CanvasHeight { get; private set; } = 600;
+        public int CanvasWidth { get; private set; } = 0;
+        public int CanvasHeight { get; private set; } = 0;
 
-        private float ballVX = 5;
-        private float ballVY = 5;
+        private bool _isInitialized = false;
 
         private System.Threading.Timer? timer;
         private DateTime lastFrameTime = DateTime.Now;
@@ -72,17 +69,75 @@ namespace AmatoFluent.ViewModels
 
         private void UpdatePhysics()
         {
-            BallX += ballVX;
-            BallY += ballVY;
-
-            if (BallX - Radius < 0 || BallX + Radius > CanvasWidth)
+            if (CanvasWidth > 0 && CanvasHeight > 0)
             {
-                ballVX = -ballVX;
-            }
+                foreach (Ball ball in Balls)
+                {
+                    ball.UpdatePhysics(CanvasWidth, CanvasHeight);
+                }
 
-            if (BallY - Radius < 0 || BallY + Radius > CanvasHeight)
-            {
-                ballVY = -ballVY;
+                // Check for collisions between balls
+                for (int i = 0; i < Balls.Count; i++)
+                {
+                    for (int j = i + 1; j < Balls.Count; j++)
+                    {
+                        Ball ballA = Balls[i];
+                        Ball ballB = Balls[j];
+
+                        float dx = ballB.X - ballA.X;
+                        float dy = ballB.Y - ballA.Y;
+                        float distanceSquare = (dx * dx) + (dy * dy);
+                        float minDistance = ballA.Radius + ballB.Radius;
+
+                        if (distanceSquare < (minDistance * minDistance))
+                        {
+                            float distance = (float)Math.Sqrt(distanceSquare);
+
+                            // Avoid overlap by pushing them apart
+                            float overlap = minDistance - distance;
+                            if (distance > 0)
+                            {
+                                float nxPush = (dx / distance) * (overlap / 2f);
+                                float nyPush = (dy / distance) * (overlap / 2f);
+                                
+                                ballA.X -= nxPush;
+                                ballA.Y -= nyPush;
+                                ballB.X += nxPush;
+                                ballB.Y += nyPush;
+                            }
+
+                            // Normal vector
+                            float nx = dx / distance;
+                            float ny = dy / distance;
+
+                            // Relative velocity
+                            float vx = ballB.VX - ballA.VX;
+                            float vy = ballB.VY - ballA.VY;
+
+                            // Velocity along the normal
+                            float dotProduct = (vx * nx) + (vy * ny);
+
+                            // Do not resolve if velocities are separating
+                            if (dotProduct > 0)
+                            {
+                                continue;
+                            }
+
+                            // Calculate restitution (elasticity)
+                            float restitution = 1.0f;
+
+                            // Calculate impulse scalar
+                            float impulse = -(1f + restitution) * dotProduct / ((1f / ballA.Mass) + (1f / ballB.Mass));
+
+                            // Apply impulse
+                            ballA.VX -= (impulse * nx) / ballA.Mass;
+                            ballA.VY -= (impulse * ny) / ballA.Mass;
+
+                            ballB.VX += (impulse * nx) / ballB.Mass;
+                            ballB.VY += (impulse * ny) / ballB.Mass;
+                        }
+                    }
+                }
             }
         }
 
@@ -93,17 +148,95 @@ namespace AmatoFluent.ViewModels
 
 		private void OnPaintSurface(SKPaintSurfaceEventArgs e)
 		{
+			CalculateFPS();
+			bool isResize = (_isInitialized && (CanvasWidth != e.Info.Width || CanvasHeight != e.Info.Height));
+
+			CanvasWidth = e.Info.Width;
+			CanvasHeight = e.Info.Height;
+
+			if (!_isInitialized && CanvasWidth > 0)
+			{
+				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 20, 5, 5, SKColors.OrangeRed));
+				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 15, -7, 6, SKColors.LightSeaGreen));
+				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 25, 4, -8, SKColors.Gold));
+				_isInitialized = true;
+			}
+			else if (isResize)
+			{
+				foreach (Ball ball in Balls)
+				{
+					ball.ResetToCenter(CanvasWidth, CanvasHeight);
+				}
+			}
+
 			SKCanvas canvas = e.Surface.Canvas;
 			canvas.Clear(SKColor.Parse("#003366"));
 
 			using SKPaint paintBall = new SKPaint
 			{
-			    Color = SKColors.OrangeRed,
 			    IsAntialias = true,
 			    Style = SKPaintStyle.Fill
 			};
 
-			canvas.DrawCircle(BallX, BallY, Radius, paintBall);
+			foreach (Ball ball in Balls)
+			{
+			    paintBall.Color = ball.Color;
+			    canvas.DrawCircle(ball.X, ball.Y, ball.Radius, paintBall);
+			}
+
+			string titleText = "Pong in Blazor Wasm";
+			float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
+			SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
+			
+			using SKFont fontTitle = new SKFont(typeface, titleSize);
+			using SKPaint paintText = new SKPaint
+			{
+				Color = SKColors.White,
+				IsAntialias = true,
+			};
+
+			while (fontTitle.MeasureText(titleText) > CanvasWidth - 40 && fontTitle.Size > 10)
+			{
+			    fontTitle.Size -= 1;
+			}
+
+			float titleY = fontTitle.Size + 20;
+			canvas.DrawText(titleText, 20, titleY, fontTitle, paintText);
+
+			string subText = "Canvas test";
+			float subSize = Math.Max(12f, CanvasWidth * 0.025f);
+			
+			using SKFont fontSub = new SKFont();
+			fontSub.Size = subSize;
+
+			using SKPaint paintSubText = new SKPaint
+			{
+				Color = SKColors.LightGray,
+				IsAntialias = true,
+			};
+
+			while (fontSub.MeasureText(subText) > CanvasWidth - 40 && fontSub.Size > 8)
+			{
+			    fontSub.Size -= 1;
+			}
+
+			float subY = titleY + fontSub.Size + 10;
+			canvas.DrawText(subText, 20, subY, fontSub, paintSubText);
+
+			string fpsText = $"FPS: {Math.Round(CurrentFps, 1)}";
+			
+			using SKFont fontFps = new SKFont();
+			fontFps.Size = 16f;
+
+			using SKPaint paintFps = new SKPaint
+			{
+				Color = SKColors.Yellow,
+				IsAntialias = true,
+			};
+
+			float fpsX = CanvasWidth - fontFps.MeasureText(fpsText) - 20;
+			float fpsY = CanvasHeight - 20;
+			canvas.DrawText(fpsText, fpsX, fpsY, fontFps, paintFps);
 		}
     }
 }
