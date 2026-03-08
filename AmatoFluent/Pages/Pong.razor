@@ -6,38 +6,32 @@
 <PageTitle>Pong con SkiaSharp</PageTitle>
 
 <div style="width: 100%; height: 85vh; min-height: 500px; background-color: #003366; overflow: hidden; border-radius: 8px;">
-    <SKCanvasView @ref="_canvas" IgnorePixelScaling="false" style="width: 100%; height: 100%; display: block;" />
+    <SKCanvasView @ref="_canvas" OnPaintSurface="ViewModel.OnPaintSurface" IgnorePixelScaling="false" style="width: 100%; height: 100%; display: block;" />
 </div>
 
 @code {
-    private bool isDisposed;
-    private SKCanvasView _canvas;
+    private SKCanvasView? _canvas;
+
     protected override void OnInitialized()
     {
         ViewModel.OnStateChanged += HandleStateChanged;
-
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            ViewModel.Configure(_canvas);
             ViewModel.Start();
         }
     }
 
     private void HandleStateChanged()
     {
-        // if (!isDisposed)
-        // {
-        //     InvokeAsync(StateHasChanged);
-        // }
+        _canvas?.Invalidate();
     }
 
     public void Dispose()
     {
-        isDisposed = true;
         ViewModel.OnStateChanged -= HandleStateChanged;
     }
 }

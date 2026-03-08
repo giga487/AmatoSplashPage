@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Versioning;
+using SkiaSharp;
+using SkiaSharp.Views.Blazor;
+using System.Collections.Generic;
+using System.Linq;
 using SkiaSharp;
 using SkiaSharp.Views.Blazor;
 
 namespace AmatoFluent.ViewModels
 {
+    [SupportedOSPlatform("browser")]
     public class PongViewModel : IDisposable
     {
         public List<Ball> Balls { get; private set; } = new List<Ball>();
@@ -31,23 +37,10 @@ namespace AmatoFluent.ViewModels
         private SKPaint? _paintBall;
 
         public event Action? OnStateChanged;
-        private SKCanvasView? _canvas;
+
 		public PongViewModel()
         {
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    frameTimes.Enqueue(1000.0 / 60.0);
-            //}
         }
-
-        public void Configure(SKCanvasView canvas)
-        {
-            _canvas = canvas;
-            _canvas.OnPaintSurface += OnPaintSurface;
-
-
-
-		}
 
         public void Start()
         {
@@ -56,7 +49,7 @@ namespace AmatoFluent.ViewModels
                 timer = new System.Threading.Timer((object? state) =>
                 {
                     UpdatePhysics();
-                    _canvas?.Invalidate();
+                    OnStateChanged?.Invoke();
                 }, null, 0, 16);
             }
         }
@@ -162,7 +155,7 @@ namespace AmatoFluent.ViewModels
             _paintBall?.Dispose();
         }
 
-		private void OnPaintSurface(SKPaintSurfaceEventArgs e)
+		public void OnPaintSurface(SKPaintSurfaceEventArgs e)
 		{
 			CalculateFPS();
 			bool isResize = (_isInitialized && (CanvasWidth != e.Info.Width || CanvasHeight != e.Info.Height));
