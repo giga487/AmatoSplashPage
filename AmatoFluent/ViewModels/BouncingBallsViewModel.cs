@@ -203,7 +203,7 @@ namespace AmatoFluent.ViewModels
 
             if (_fontTitle != null && _paintText != null)
             {
-			    string titleText = "Bouncing Balls in Blazor Wasm";
+			    string titleText = "Bouncing Balls via SKIA";
 			    float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
 			    _fontTitle.Size = titleSize;
 			    
