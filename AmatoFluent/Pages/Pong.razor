@@ -1,4 +1,7 @@
 @page "/pong"
+@using AmatoFluent.ViewModels
+@inject PongViewModel ViewModel
+@implements IDisposable
 
 <PageTitle>Pong con SkiaSharp</PageTitle>
 
@@ -6,109 +9,38 @@
 <p>Test di canvas SkiaSharp con pallina rimbalzante.</p>
 
 <div style="width: 800px; height: 600px; border: 1px solid black; background-color: #eee;">
-    <SKCanvasView OnPaintSurface="OnPaintSurface" IgnorePixelScaling="true" />
+    <SKCanvasView @ref="_canvas" IgnorePixelScaling="true" />
 </div>
 
 @code {
-    private float ballX = 400;
-    private float ballY = 300;
-    private float ballVX = 5;
-    private float ballVY = 5;
-    private float radius = 20;
-    private const int canvasWidth = 800;
-    private const int canvasHeight = 600;
-
-    // Variabili per il calcolo degli FPS
-    private System.Threading.Timer? timer;
-    private DateTime lastFrameTime = DateTime.Now;
-    private Queue<double> frameTimes = new Queue<double>(100);
-    private double currentFps = 0;
-
+    private bool isDisposed;
+    private SKCanvasView _canvas;
     protected override void OnInitialized()
     {
-        // Riempiamo inizialmente la coda per non avere FPS a zero all'inizio
-        for (int i = 0; i < 100; i++)
-        {
-            frameTimes.Enqueue(1000.0 / 60.0); // assumiamo 60fps iniziali
-        }
+        ViewModel.OnStateChanged += HandleStateChanged;
 
-        // Impostiamo un timer per il Game Loop a ~60fps (1000ms / 60 ≈ 16ms)
-        timer = new System.Threading.Timer((_) =>
-        {
-            UpdatePhysics();
-            InvokeAsync(StateHasChanged);
-        }, null, 0, 16);
     }
 
-    private void CalculateFPS()
+    protected override void OnAfterRender(bool firstRender)
     {
-        var now = DateTime.Now;
-        var frameTime = (now - lastFrameTime).TotalMilliseconds;
-        lastFrameTime = now;
-
-        // Gestione coda circolare (buffer 100 campioni)
-        if (frameTimes.Count >= 100)
+        if (firstRender)
         {
-            frameTimes.Dequeue();
-        }
-        frameTimes.Enqueue(frameTime);
-
-        // Calcolo media
-        var averageFrameTime = frameTimes.Average();
-        currentFps = 1000.0 / averageFrameTime;
-    }
-
-    private void UpdatePhysics()
-    {
-        ballX += ballVX;
-        ballY += ballVY;
-
-        // Rimbalzo orizzontale
-        if (ballX - radius < 0 || ballX + radius > canvasWidth)
-        {
-            ballVX = -ballVX;
-        }
-
-        // Rimbalzo verticale
-        if (ballY - radius < 0 || ballY + radius > canvasHeight)
-        {
-            ballVY = -ballVY;
+            ViewModel.Configure(_canvas);
+            ViewModel.Start();
         }
     }
 
-    private void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    private void HandleStateChanged()
     {
-        CalculateFPS();
-
-        var canvas = e.Surface.Canvas;
-        canvas.Clear(SKColors.Transparent);
-
-        // Disegno palla
-        using var paintBall = new SKPaint
-        {
-            Color = SKColors.OrangeRed,
-            IsAntialias = true,
-            Style = SKPaintStyle.Fill
-        };
-        canvas.DrawCircle(ballX, ballY, radius, paintBall);
-
-        // Disegno testo FPS in alto a destra
-        using var paintText = new SKPaint
-        {
-            Color = SKColors.Black,
-            IsAntialias = true,
-            TextSize = 24,
-            Typeface = SKTypeface.Default
-        };
-        
-        string fpsText = $"FPS: {currentFps:F1}";
-        // Misuriamo la larghezza del testo per allinearlo a destra
-        float textWidth = paintText.MeasureText(fpsText);
-        canvas.DrawText(fpsText, canvasWidth - textWidth - 20, 30, paintText);
+        // if (!isDisposed)
+        // {
+        //     InvokeAsync(StateHasChanged);
+        // }
     }
 
     public void Dispose()
     {
-        timer?.Dispose();
+        isDisposed = true;
+        ViewModel.OnStateChanged -= HandleStateChanged;
     }
 }

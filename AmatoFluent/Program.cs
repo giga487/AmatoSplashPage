@@ -1,6 +1,10 @@
+using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
+using AmatoFluent.ViewModels;
 
 namespace AmatoFluent
 {
@@ -8,12 +12,14 @@ namespace AmatoFluent
 	{
 		public static async Task Main(string[] args)
 		{
-			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+			WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("#app");
 			builder.RootComponents.Add<HeadOutlet>("head::after");
 
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+			builder.Services.AddScoped((IServiceProvider sp) => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 			builder.Services.AddFluentUIComponents();
+            
+			builder.Services.AddTransient<PongViewModel>();
 
 			await builder.Build().RunAsync();
 		}
