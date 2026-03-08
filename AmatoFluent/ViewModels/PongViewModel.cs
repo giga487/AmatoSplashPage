@@ -93,10 +93,10 @@ namespace AmatoFluent.ViewModels
                         {
                             float distance = (float)Math.Sqrt(distanceSquare);
 
-                            // Avoid overlap by pushing them apart
-                            float overlap = minDistance - distance;
                             if (distance > 0)
                             {
+                                // Avoid overlap by pushing them apart
+                                float overlap = minDistance - distance;
                                 float nxPush = (dx / distance) * (overlap / 2f);
                                 float nyPush = (dy / distance) * (overlap / 2f);
                                 
@@ -104,37 +104,35 @@ namespace AmatoFluent.ViewModels
                                 ballA.Y -= nyPush;
                                 ballB.X += nxPush;
                                 ballB.Y += nyPush;
+
+                                // Normal vector
+                                float nx = dx / distance;
+                                float ny = dy / distance;
+
+                                // Relative velocity
+                                float vx = ballB.VX - ballA.VX;
+                                float vy = ballB.VY - ballA.VY;
+
+                                // Velocity along the normal
+                                float dotProduct = (vx * nx) + (vy * ny);
+
+                                // Do not resolve if velocities are separating
+                                if (dotProduct <= 0)
+                                {
+                                    // Calculate restitution (elasticity)
+                                    float restitution = 1.0f;
+
+                                    // Calculate impulse scalar
+                                    float impulse = -(1f + restitution) * dotProduct / ((1f / ballA.Mass) + (1f / ballB.Mass));
+
+                                    // Apply impulse
+                                    ballA.VX -= (impulse * nx) / ballA.Mass;
+                                    ballA.VY -= (impulse * ny) / ballA.Mass;
+
+                                    ballB.VX += (impulse * nx) / ballB.Mass;
+                                    ballB.VY += (impulse * ny) / ballB.Mass;
+                                }
                             }
-
-                            // Normal vector
-                            float nx = dx / distance;
-                            float ny = dy / distance;
-
-                            // Relative velocity
-                            float vx = ballB.VX - ballA.VX;
-                            float vy = ballB.VY - ballA.VY;
-
-                            // Velocity along the normal
-                            float dotProduct = (vx * nx) + (vy * ny);
-
-                            // Do not resolve if velocities are separating
-                            if (dotProduct > 0)
-                            {
-                                continue;
-                            }
-
-                            // Calculate restitution (elasticity)
-                            float restitution = 1.0f;
-
-                            // Calculate impulse scalar
-                            float impulse = -(1f + restitution) * dotProduct / ((1f / ballA.Mass) + (1f / ballB.Mass));
-
-                            // Apply impulse
-                            ballA.VX -= (impulse * nx) / ballA.Mass;
-                            ballA.VY -= (impulse * ny) / ballA.Mass;
-
-                            ballB.VX += (impulse * nx) / ballB.Mass;
-                            ballB.VY += (impulse * ny) / ballB.Mass;
                         }
                     }
                 }
@@ -157,8 +155,8 @@ namespace AmatoFluent.ViewModels
 			if (!_isInitialized && CanvasWidth > 0)
 			{
 				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 20, 5, 5, SKColors.OrangeRed));
-				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 15, -7, 6, SKColors.LightSeaGreen));
-				Balls.Add(new Ball(CanvasWidth / 2f, CanvasHeight / 2f, 25, 4, -8, SKColors.Gold));
+				Balls.Add(new Ball((CanvasWidth / 2f) + 50f, (CanvasHeight / 2f) + 50f, 15, -7, 6, SKColors.LightSeaGreen));
+				Balls.Add(new Ball((CanvasWidth / 2f) - 50f, (CanvasHeight / 2f) - 50f, 25, 4, -8, SKColors.Gold));
 				_isInitialized = true;
 			}
 			else if (isResize)
@@ -186,7 +184,7 @@ namespace AmatoFluent.ViewModels
 
 			string titleText = "Pong in Blazor Wasm";
 			float titleSize = Math.Max(20f, CanvasWidth * 0.05f);
-			SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
+			SKTypeface typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright) ?? SKTypeface.Default;
 			
 			using SKFont fontTitle = new SKFont(typeface, titleSize);
 			using SKPaint paintText = new SKPaint
