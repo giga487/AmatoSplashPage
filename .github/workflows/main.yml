@@ -24,6 +24,9 @@ jobs:
         with:
           dotnet-version: 9.0.x # Usa la versione del tuo progetto
 
+      - name: Install WebAssembly Tools Workload
+        run: dotnet workload install wasm-tools
+
       # 1. Pubblica il progetto
       - name: Publish .NET Project
         run: dotnet publish AmatoFluent/AmatoFluent.csproj -c Release -o public
