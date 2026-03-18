@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../../src/Foundamentals/Foundamentals.csproj" />
+  <Project Path="WebAppExample.csproj" />
+</Solution>
