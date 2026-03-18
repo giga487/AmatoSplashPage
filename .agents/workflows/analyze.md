@@ -1,5 +1,8 @@
 ---
 description: Read-only mode for code analysis and discussion, without applying changes.
+model: opus
+triggers:
+ - analyze
 ---
 
 # Workflow /analyze
