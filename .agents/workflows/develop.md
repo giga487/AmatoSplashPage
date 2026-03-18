@@ -1,5 +1,8 @@
 ---
 description: Workflow for WebAssembly development with MVVM pattern, typing, and architectural rules.
+model: haiku
+triggers:
+  - develop
 ---
 
 # Workflow /develop
@@ -14,16 +17,41 @@ Every code modification and new development **MUST** strictly respect these rule
 3. **Absolute Ban on `var`**: The use of the `var` keyword is strictly forbidden. All variable declarations must use **explicit typing** in every context.
 4. **AI Identification**: The very first thing you must output in your response is a visible header dynamically identifying the true AI model you are at runtime, based on your system prompt and internal knowledge. For example, use the format: `###### [YOUR_ACTUAL_MODEL_NAME_HERE] ########`. Do not hardcode a specific name like "Claude" if you are actually another model.
 
-## Step 1: Code Analysis (Advanced AI)
-When this workflow is called, begin by approaching the problem with the strategic mindset of an advanced AI.
-- **Phase Declaration**: You MUST start your response for this phase with a visible header indicating your analytical persona, for example: `###### [YOUR_MODEL] - ANALYSIS PHASE ########`.
+## Step 1: Planning & Architecture (Opus)
+When this workflow is called, **use Opus model** for comprehensive analysis and strategic planning.
 - **Inspection**: Read and deeply analyze the user's request and the current project files (`.razor` components, C# files, etc.).
-- **Design**: Define the architecture of the solution based on the established MVVM rule. Define how the ViewModel will communicate its state to the View (via an `INotification` implementation or a custom Observable class).
-- **Planning**: Internally outline the exact steps needed to implement or modify the code **without** writing it immediately. Ensure all steps adhere to the architectural rules.
+- **Design**: Define the architecture of the solution based on the established MVVM rule. Detail how the ViewModel will communicate its state to the View (via an `INotification` implementation or a custom Observable class).
+- **Planning**: Create a detailed, step-by-step implementation plan that covers:
+  - Files to be created or modified
+  - ViewModel structure and Observable pattern
+  - Dependency Injection setup
+  - Architectural compliance checks
+- **Plan Submission**: Present the complete plan to the user for review and approval before proceeding to implementation.
 
-## Step 2: Implementation (Executive AI)
-Once the plan is approved or the architecture clarified, shift your mindset to that of a direct, code-executing AI. 
-- **Phase Declaration**: You MUST clearly declare this persona shift with a new visible header before writing the code, for example: `###### [YOUR_MODEL] - IMPLEMENTATION PHASE ########`.
-- **Execution**: Modify or create the files specified in the plan.
-- **Compliance**: Throughout iterative development, constantly apply the project constraints (write only explicitly typed C#, zero tuples or `var`).
-- **Verification**: At the end of each modification, ensure, file by file, that you haven't inadvertently inserted tuples or `var`. Use constructor injection or `@inject` within Razor pages to wire up the Observable classes/ViewModels.
+---
+
+## 🔄 **MODEL SWITCH: Opus → Haiku**
+Once the user approves the plan, **explicitly announce the model switch** with a clear header:
+
+```
+###### SWITCHING FROM OPUS TO HAIKU FOR IMPLEMENTATION ######
+```
+
+Then proceed to Step 2 with Haiku.
+
+---
+
+## Step 2: Implementation (Haiku)
+Once the plan is approved by the user, **switch to Haiku model** for fast and focused code execution, following the detailed plan produced by Opus.
+- **Execution**: Implement the files and changes specified in the approved plan.
+- **Compliance**: Throughout development, strictly apply the project constraints:
+  - Only explicitly typed C# (no `var`)
+  - Zero tuples or `ValueTuple`
+  - MVVM pattern adherence
+  - Constructor injection or `@inject` for ViewModels
+- **Verification**: After each file modification, verify compliance:
+  - No `var` keywords introduced
+  - No tuples used
+  - Observable pattern correctly implemented
+  - All changes match the plan specifications
+- **Testing**: Ensure the implementation works as designed and follows the architectural rules.

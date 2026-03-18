@@ -1,0 +1,28 @@
+@using Foundamentals.Skia
+@using SkiaSharp
+@implements IDisposable
+
+<CascadingValue Value="(SkiaBarDrawable)_footerDrawable">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [CascadingParameter] private SkiaScene Scene { get; set; } = default!;
+
+    [Parameter] public float Height { get; set; } = 48f;
+    [Parameter] public SKColor BackgroundColor { get; set; } = new SKColor(20, 20, 20, 220);
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private SkiaFooterDrawable _footerDrawable = default!;
+
+    protected override void OnInitialized()
+    {
+        _footerDrawable = new SkiaFooterDrawable(Scene, Height, BackgroundColor);
+        Scene.AddObject(_footerDrawable);
+    }
+
+    public void Dispose()
+    {
+        Scene.RemoveObject(_footerDrawable);
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find c:/Work/repository/AmatoSplashPage -type d -not -path */bin -not -path */obj -not -path */.git -not -path */.vs)",
+      "Bash(find c:/Work/repository/AmatoSplashPage/SkiaSharpBlazor/src -name \"*.cs\" -not -path \"*/bin/*\" -not -path \"*/obj/*\" -exec wc -l {} +)"
+    ]
+  }
+}

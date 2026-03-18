@@ -1,0 +1,52 @@
+@using Foundamentals.Skia
+@using Foundamentals.Skia.Configs
+@implements IDisposable
+
+@code {
+    [CascadingParameter] private SkiaScene Scene { get; set; } = default!;
+    [CascadingParameter] private SkiaBarDrawable? Bar { get; set; }
+
+    [Parameter] public string Text { get; set; } = "";
+    [Parameter] public float X { get; set; }
+    [Parameter] public float Y { get; set; }
+    [Parameter] public float Width { get; set; } = 140f;
+    [Parameter] public float Height { get; set; } = 44f;
+    [Parameter] public float Padding { get; set; } = 8f;
+    [Parameter] public ButtonAlignment Alignment { get; set; } = ButtonAlignment.None;
+    [Parameter] public SkiaFontConfig? Font { get; set; }
+    [Parameter] public SkiaBackgroundConfig? Background { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private SkiaButtonDrawable _drawable = default!;
+
+    protected override void OnInitialized()
+    {
+        SkiaFontConfig font = Font ?? new SkiaFontConfig();
+        SkiaBackgroundConfig background = Background ?? new SkiaBackgroundConfig();
+
+        _drawable = new SkiaButtonDrawable(
+            Text, X, Y, Width, Height,
+            font, background,
+            () => OnClick.InvokeAsync()
+        );
+
+        if (Bar != null)
+        {
+            _drawable.ComputeY = () => Bar.GetChildY(Height);
+            _drawable.ComputeX = Alignment switch
+            {
+                ButtonAlignment.Right  => () => Bar.GetChildXRight(Width, Padding),
+                ButtonAlignment.Left   => () => Bar.GetChildXLeft(Padding),
+                ButtonAlignment.Center => () => Bar.GetChildXCenter(Width),
+                _                      => null
+            };
+        }
+
+        Scene.AddObject(_drawable);
+    }
+
+    public void Dispose()
+    {
+        Scene.RemoveObject(_drawable);
+    }
+}
