@@ -1,0 +1,35 @@
+@using Foundamentals.Skia
+@using Foundamentals.Skia.Configs
+@implements IDisposable
+
+@code {
+    [CascadingParameter] private SkiaScene Scene { get; set; } = default!;
+
+    [Parameter] public float X { get; set; }
+    [Parameter] public float Y { get; set; }
+    [Parameter] public float Z { get; set; } = 3f;
+    [Parameter] public float Width { get; set; } = 200f;
+    [Parameter] public float Height { get; set; } = 100f;
+    [Parameter] public string Text { get; set; } = "";
+    [Parameter] public float Padding { get; set; } = 10f;
+    [Parameter] public ButtonAlignment TextAlignment { get; set; } = ButtonAlignment.Left;
+    [Parameter] public SkiaFontConfig? Font { get; set; }
+    [Parameter] public SkiaBackgroundConfig? Background { get; set; }
+
+    private SkiaBoxDrawable _drawable = default!;
+
+    protected override void OnInitialized()
+    {
+        SkiaFontConfig font = Font ?? new SkiaFontConfig();
+        SkiaBackgroundConfig background = Background ?? new SkiaBackgroundConfig();
+
+        _drawable = new SkiaBoxDrawable(X, Y, Z, Width, Height, Text, font, background, Padding, TextAlignment);
+
+        Scene.AddObject(_drawable);
+    }
+
+    public void Dispose()
+    {
+        Scene.RemoveObject(_drawable);
+    }
+}

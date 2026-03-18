@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 using Foundamentals.Skia;
+using Foundamentals.Skia.Configs;
+using Components.Skia;
 
 namespace AmatoFluent.ViewModels.SpaceInvaders
 {
@@ -40,6 +42,7 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
         private float _elapsedMs = 0f;
 
         private bool _isInitialized = false;
+        private SkiaBoxDrawable? _overlayBox;
 
         private DateTime _lastFrameTime = DateTime.Now;
         private Queue<double> _frameTimes = new Queue<double>(100);
@@ -102,17 +105,33 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
 
             canvas.DrawText($"FPS: {Math.Round(_currentFps, 1)}", canvasWidth - 90f, canvasHeight - 10f, fontFps, paintFps);
 
-            if (IsPaused)
+            if (_overlayBox != null)
             {
-                DrawCenteredMessage(canvas, "PAUSED", "Press ⏸ to resume", SKColors.SkyBlue);
-            }
-            else if (IsGameOver)
-            {
-                DrawCenteredMessage(canvas, "GAME OVER", "Press R to restart", SKColors.Red);
-            }
-            else if (IsWon)
-            {
-                DrawCenteredMessage(canvas, "YOU WIN!", "Press R to restart", SKColors.LimeGreen);
+                if (IsPaused)
+                {
+                    _overlayBox.Text = "PAUSED";
+                    _overlayBox.SubText = "Press ⏸ to resume";
+                    _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(30, 80, 160) };
+                    _overlayBox.IsVisible = true;
+                }
+                else if (IsGameOver)
+                {
+                    _overlayBox.Text = "GAME OVER";
+                    _overlayBox.SubText = "Press R to restart";
+                    _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(180, 20, 20) };
+                    _overlayBox.IsVisible = true;
+                }
+                else if (IsWon)
+                {
+                    _overlayBox.Text = "YOU WIN!";
+                    _overlayBox.SubText = "Press R to restart";
+                    _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(20, 130, 20) };
+                    _overlayBox.IsVisible = true;
+                }
+                else
+                {
+                    _overlayBox.IsVisible = false;
+                }
             }
         }
 
@@ -123,6 +142,30 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             foreach (Bullet bullet in _bullets) Scene.RemoveObject(bullet);
             _invaders.Clear();
             _bullets.Clear();
+
+            if (_overlayBox != null) Scene.RemoveObject(_overlayBox);
+            float boxWidth = 420f;
+            float boxHeight = 160f;
+            _overlayBox = new SkiaBoxDrawable(
+                x: (canvasWidth - boxWidth) / 2f,
+                y: (canvasHeight - boxHeight) / 2f,
+                z: 10f,
+                width: boxWidth,
+                height: boxHeight,
+                text: "",
+                font: new SkiaFontConfig { Size = 48f, Color = SKColors.Black },
+                background: new SkiaBackgroundConfig
+                {
+                    Color = new SKColor(160, 160, 160, 255),
+                    CornerRadius = 12f,
+                    BorderColor = new SKColor(100, 100, 100, 255),
+                    BorderWidth = 1.5f
+                },
+                padding: 20f,
+                textAlignment: ButtonAlignment.Center
+            )
+            { IsVisible = false };
+            Scene.AddObject(_overlayBox);
 
             _player = new PlayerShip(canvasWidth / 2f - 20f, canvasHeight - 70f);
             Scene.AddObject(_player);
@@ -333,36 +376,6 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             _frameTimes.Enqueue(frameDelta);
             double averageFrameTime = _frameTimes.Average();
             _currentFps = 1000.0 / averageFrameTime;
-        }
-
-        private void DrawCenteredMessage(SKCanvas canvas, string title, string subtitle, SKColor color)
-        {
-            int canvasWidth = (int)Scene.CanvasWidth;
-            int canvasHeight = (int)Scene.CanvasHeight;
-
-            using SKFont fontTitle = new SKFont();
-            fontTitle.Size = 48f;
-
-            using SKPaint paintTitle = new SKPaint
-            {
-                Color = color,
-                IsAntialias = true
-            };
-
-            float titleWidth = fontTitle.MeasureText(title);
-            canvas.DrawText(title, (canvasWidth - titleWidth) / 2f, canvasHeight / 2f - 20f, fontTitle, paintTitle);
-
-            using SKFont fontSub = new SKFont();
-            fontSub.Size = 22f;
-
-            using SKPaint paintSub = new SKPaint
-            {
-                Color = SKColors.LightGray,
-                IsAntialias = true
-            };
-
-            float subWidth = fontSub.MeasureText(subtitle);
-            canvas.DrawText(subtitle, (canvasWidth - subWidth) / 2f, canvasHeight / 2f + 30f, fontSub, paintSub);
         }
 
         public void Dispose()
