@@ -33,5 +33,6 @@
     public void Dispose()
     {
         ViewModel.OnStateChanged -= HandleStateChanged;
+        ViewModel.Dispose();
     }
 }
