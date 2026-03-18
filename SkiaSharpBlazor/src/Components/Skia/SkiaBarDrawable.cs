@@ -5,7 +5,7 @@ namespace Components.Skia
 {
     public class SkiaBarDrawable : SkiaObjectBase
     {
-        private readonly SkiaScene _scene;
+        protected readonly SkiaScene _scene;
 
         public float BarY { get; set; }
         public float BarHeight { get; set; }

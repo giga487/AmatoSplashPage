@@ -47,6 +47,7 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
         private DateTime _lastFrameTime = DateTime.Now;
         private Queue<double> _frameTimes = new Queue<double>(100);
         private double _currentFps = 0;
+        public double CurrentFps => _currentFps;
 
         public event Action? OnStateChanged;
 
@@ -94,23 +95,13 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             int canvasWidth = (int)Scene.CanvasWidth;
             int canvasHeight = (int)Scene.CanvasHeight;
 
-            using SKFont fontFps = new SKFont();
-            fontFps.Size = 14f;
-
-            using SKPaint paintFps = new SKPaint
-            {
-                Color = SKColors.Yellow,
-                IsAntialias = true
-            };
-
-            canvas.DrawText($"FPS: {Math.Round(_currentFps, 1)}", canvasWidth - 90f, canvasHeight - 10f, fontFps, paintFps);
 
             if (_overlayBox != null)
             {
                 if (IsPaused)
                 {
                     _overlayBox.Text = "PAUSED";
-                    _overlayBox.SubText = "Press Pauseè to resume";
+                    _overlayBox.SubText = "Press Pause to resume";
                     _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(30, 80, 160) };
                     _overlayBox.IsVisible = true;
                 }

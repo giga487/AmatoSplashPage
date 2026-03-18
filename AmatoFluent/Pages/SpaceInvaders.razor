@@ -37,13 +37,24 @@
                         Padding="10"
                         OnClick="TogglePause" />
         </SkiaBar>
+        
+
+        <SkiaFooter Height="28" BackgroundColor="@(new SKColor(100, 100, 100))">
+            <SkiaLabel Text="Abused of Claude Code, SkiaSharp, C# and Blazor"
+                       Alignment="ButtonAlignment.Left"
+                       Padding="14"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+            <SkiaLabel Text="Arrow keys to move  |  Space to shoot  |  R to restart"
+                       Alignment="ButtonAlignment.Center"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+            <SkiaLabel GetText="GetFpsText"
+                       Alignment="ButtonAlignment.Right"
+                       Padding="14"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+        </SkiaFooter>
     </SkiaCanvas>
 </div>
 
-<div style="margin-top: 8px; color: #aaa; font-size: 14px;">
-    Arrow keys to move &nbsp;|&nbsp; Space to shoot &nbsp;|&nbsp; R to restart
-
-</div>
 
 @code {
     private ElementReference _gameDiv;
@@ -63,6 +74,7 @@
     }
 
     private string GetScoreText() => $"Score: {ViewModel.Score}";
+    private string GetFpsText() => $"FPS: {Math.Round(ViewModel.CurrentFps, 1)}";
 
     private string GetLivesText()
     {
