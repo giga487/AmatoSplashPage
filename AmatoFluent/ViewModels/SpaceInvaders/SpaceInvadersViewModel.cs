@@ -110,7 +110,7 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
                 if (IsPaused)
                 {
                     _overlayBox.Text = "PAUSED";
-                    _overlayBox.SubText = "Press Pauseè∏ to resume";
+                    _overlayBox.SubText = "Press Pauseè to resume";
                     _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(30, 80, 160) };
                     _overlayBox.IsVisible = true;
                 }

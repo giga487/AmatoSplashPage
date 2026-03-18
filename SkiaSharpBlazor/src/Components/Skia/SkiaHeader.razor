@@ -9,7 +9,6 @@
 @code {
     [CascadingParameter] private SkiaScene Scene { get; set; } = default!;
 
-    [Parameter] public float Y { get; set; } = 0f;
     [Parameter] public float Height { get; set; } = 48f;
     [Parameter] public SKColor BackgroundColor { get; set; } = new SKColor(20, 20, 20, 220);
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -18,7 +17,7 @@
 
     protected override void OnInitialized()
     {
-        _barDrawable = new SkiaBarDrawable(Scene, Y, Height, BackgroundColor);
+        _barDrawable = new SkiaBarDrawable(Scene, barY: 0f, Height, BackgroundColor);
         Scene.AddObject(_barDrawable);
     }
 
