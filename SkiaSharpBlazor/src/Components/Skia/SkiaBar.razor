@@ -1,0 +1,29 @@
+@using Foundamentals.Skia
+@using SkiaSharp
+@implements IDisposable
+
+<CascadingValue Value="_barDrawable">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [CascadingParameter] private SkiaScene Scene { get; set; } = default!;
+
+    [Parameter] public BarPosition Position { get; set; } = BarPosition.Top;
+    [Parameter] public float Height { get; set; } = 48f;
+    [Parameter] public SKColor BackgroundColor { get; set; } = new SKColor(20, 20, 20, 220);
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private SkiaBarDrawable _barDrawable = default!;
+
+    protected override void OnInitialized()
+    {
+        _barDrawable = new SkiaBarDrawable(Scene, Position, Height, BackgroundColor);
+        Scene.AddObject(_barDrawable);
+    }
+
+    public void Dispose()
+    {
+        Scene.RemoveObject(_barDrawable);
+    }
+}

@@ -22,6 +22,11 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SkiaSharpBlazor\src\Foundamentals\Foundamentals.csproj" />
+    <ProjectReference Include="..\SkiaSharpBlazor\src\Components\Components.csproj" />
+  </ItemGroup>
+
   <Target Name="CopyCvData" BeforeTargets="BeforeBuild">
     <Copy SourceFiles="..\cv-data.json" DestinationFolder="wwwroot\sample-data\" SkipUnchangedFiles="true" />
   </Target>

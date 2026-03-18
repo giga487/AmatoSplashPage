@@ -1,0 +1,121 @@
+@page "/space-invaders"
+@using AmatoFluent.ViewModels.SpaceInvaders
+@inject SpaceInvadersViewModel ViewModel
+@implements IDisposable
+
+<PageTitle>Space Invaders</PageTitle>
+
+<div @ref="_gameDiv"
+     tabindex="0"
+     style="width: 100%; height: 85vh; min-height: 500px; outline: none;"
+     @onkeydown="OnKeyDown"
+     @onkeyup="OnKeyUp"
+     @onkeydown:preventDefault
+     @onkeyup:preventDefault>
+
+    <SkiaCanvas ExternalScene="ViewModel.Scene"
+                OnBeforeRender="ViewModel.UpdateFrame"
+                OnAfterRender="ViewModel.DrawHUD"
+                BackgroundColor="SKColors.Black"
+                Style="width: 100%; height: 100%;">
+        <SkiaBar Position="BarPosition.Top" Height="48" BackgroundColor="SKColors.DarkRed">
+            <SkiaLabel GetText="GetScoreText"
+                       Alignment="ButtonAlignment.Left"
+                       Padding="14" />
+            <SkiaLabel GetText="GetLivesText"
+                       Alignment="ButtonAlignment.Center"
+                       Font="@(new SkiaFontConfig { Color = SkiaSharp.SKColors.Tomato, Size = 22f, Family = "Segoe UI Symbol" })" />
+            <SkiaButton Text="Pause"
+                        Alignment="ButtonAlignment.Right"
+                        Width="80" Height="34"
+                        Padding="10"
+                        OnClick="TogglePause" />
+        </SkiaBar>
+    </SkiaCanvas>
+</div>
+
+<div style="margin-top: 8px; color: #aaa; font-size: 14px;">
+    Arrow keys to move &nbsp;|&nbsp; Space to shoot &nbsp;|&nbsp; R to restart
+</div>
+
+@code {
+    private ElementReference _gameDiv;
+    private bool _isDisposed = false;
+
+    protected override void OnInitialized()
+    {
+        ViewModel.OnStateChanged += HandleStateChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _gameDiv.FocusAsync();
+        }
+    }
+
+    private string GetScoreText() => $"Score: {ViewModel.Score}";
+
+    private string GetLivesText()
+    {
+        string hearts = "";
+        for (int i = 0; i < ViewModel.Lives; i++)
+        {
+            if (i > 0) hearts += "  ";
+            hearts += "❤";
+        }
+        return hearts;
+    }
+
+    private void TogglePause()
+    {
+        ViewModel.TogglePause();
+    }
+
+    private void OnKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "ArrowLeft":
+                ViewModel.SetMoveLeft(true);
+                break;
+            case "ArrowRight":
+                ViewModel.SetMoveRight(true);
+                break;
+            case " ":
+                ViewModel.SetShoot(true);
+                break;
+            case "r":
+            case "R":
+                ViewModel.Restart();
+                break;
+        }
+    }
+
+    private void OnKeyUp(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "ArrowLeft":
+                ViewModel.SetMoveLeft(false);
+                break;
+            case "ArrowRight":
+                ViewModel.SetMoveRight(false);
+                break;
+            case " ":
+                ViewModel.SetShoot(false);
+                break;
+        }
+    }
+
+    private void HandleStateChanged()
+    {
+    }
+
+    public void Dispose()
+    {
+        _isDisposed = true;
+        ViewModel.OnStateChanged -= HandleStateChanged;
+    }
+}

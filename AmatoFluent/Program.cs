@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using AmatoFluent.ViewModels;
+using AmatoFluent.ViewModels.SpaceInvaders;
 
 namespace AmatoFluent
 {
@@ -20,6 +21,7 @@ namespace AmatoFluent
 			builder.Services.AddFluentUIComponents();
             
 			builder.Services.AddTransient<PongViewModel>();
+			builder.Services.AddTransient<SpaceInvadersViewModel>();
 
 			await builder.Build().RunAsync();
 		}
