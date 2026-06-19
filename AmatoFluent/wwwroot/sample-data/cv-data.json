@@ -65,7 +65,8 @@
         "LabWindows/CVI",
         "Customer logistic supports",
         "Windows Provisioning (Power-Shell) and Unix bash scripts",
-        "Utilities software in C++ (QT) and C# console application."
+        "Utilities software in C++ (QT) and C# console application.",
+        "Kafka Producer/Kafka Provider and MCP Server with AI"
       ]
     },
     {
