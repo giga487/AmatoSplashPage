@@ -1,0 +1,50 @@
+@using Foundamentals.Skia
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+
+<CascadingValue Value="_activeScene">
+    @ChildContent
+</CascadingValue>
+
+<div style="@_containerStyle"
+     @onpointerdown="OnPointerDown">
+    <SKCanvasView EnableRenderLoop="@EnableRenderLoop"
+                  IgnorePixelScaling="true"
+                  OnPaintSurface="OnPaintSurface"
+                  style="width: 100%; height: 100%; display: block;" />
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public SkiaScene? ExternalScene { get; set; }
+    [Parameter] public bool EnableRenderLoop { get; set; } = true;
+    [Parameter] public string Style { get; set; } = "width: 100%; height: 85vh;";
+    [Parameter] public SKColor BackgroundColor { get; set; } = SKColors.Black;
+    [Parameter] public Action? OnBeforeRender { get; set; }
+    [Parameter] public Action<SKCanvas>? OnAfterRender { get; set; }
+
+    private readonly SkiaScene _ownedScene = new SkiaScene();
+    private SkiaScene _activeScene => ExternalScene ?? _ownedScene;
+
+    public SkiaScene Scene => _activeScene;
+
+    private string _containerStyle => Style + " overflow: hidden;";
+
+    private void OnPointerDown(PointerEventArgs e)
+    {
+        _activeScene.HandleClick((float)e.OffsetX, (float)e.OffsetY);
+    }
+
+    private void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        _activeScene.UpdateCanvasSize(e.Info.Width, e.Info.Height);
+
+        OnBeforeRender?.Invoke();
+
+        SKCanvas canvas = e.Surface.Canvas;
+        canvas.Clear(BackgroundColor);
+        _activeScene.Render(canvas);
+
+        OnAfterRender?.Invoke(canvas);
+    }
+}

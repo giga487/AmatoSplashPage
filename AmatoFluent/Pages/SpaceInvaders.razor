@@ -1,0 +1,140 @@
+@page "/space-invaders"
+@using AmatoFluent.ViewModels.SpaceInvaders
+@inject SpaceInvadersViewModel ViewModel
+@implements IDisposable
+
+<PageTitle>Space Invaders</PageTitle>
+
+<div @ref="_gameDiv"
+     tabindex="0"
+     style="width: 100%; height: 85vh; min-height: 500px; outline: none;"
+     @onkeydown="OnKeyDown"
+     @onkeyup="OnKeyUp"
+     @onkeydown:preventDefault
+     @onkeyup:preventDefault>
+
+    <SkiaCanvas ExternalScene="ViewModel.Scene"
+                OnBeforeRender="ViewModel.UpdateFrame"
+                OnAfterRender="ViewModel.DrawHUD"
+                BackgroundColor="SKColors.Black"
+                Style="width: 100%; height: 100%;">
+        <SkiaHeader Height="36" BackgroundColor="@(new SKColor(100, 100, 100))">
+            <SkiaLabel Text="I'm thinking about a simple SkiaSharp framework example to make a fast rendered component viewer."
+                       Alignment="ButtonAlignment.Left"
+                       Padding="14"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 14f })" />
+        </SkiaHeader>
+        <SkiaBar Y="36" Height="48" BackgroundColor="SKColors.DarkRed">
+            <SkiaLabel GetText="GetScoreText"
+                       Alignment="ButtonAlignment.Left"
+                       Padding="14" />
+            <SkiaLabel GetText="GetLivesText"
+                       Alignment="ButtonAlignment.Center"
+                       Font="@(new SkiaFontConfig { Color = SkiaSharp.SKColors.Tomato, Size = 22f, Family = "Segoe UI Symbol" })" />
+            <SkiaButton Text="Pause"
+                        Alignment="ButtonAlignment.Right"
+                        Width="80" Height="34"
+                        Padding="10"
+                        OnClick="TogglePause" />
+        </SkiaBar>
+        
+
+        <SkiaFooter Height="28" BackgroundColor="@(new SKColor(100, 100, 100))">
+            <SkiaLabel Text="Abused of Claude Code, SkiaSharp, C# and Blazor"
+                       Alignment="ButtonAlignment.Left"
+                       Padding="14"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+            <SkiaLabel Text="Arrow keys to move  |  Space to shoot  |  R to restart"
+                       Alignment="ButtonAlignment.Center"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+            <SkiaLabel GetText="GetFpsText"
+                       Alignment="ButtonAlignment.Right"
+                       Padding="14"
+                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+        </SkiaFooter>
+    </SkiaCanvas>
+</div>
+
+
+@code {
+    private ElementReference _gameDiv;
+    private bool _isDisposed = false;
+
+    protected override void OnInitialized()
+    {
+        ViewModel.OnStateChanged += HandleStateChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _gameDiv.FocusAsync();
+        }
+    }
+
+    private string GetScoreText() => $"Score: {ViewModel.Score}";
+    private string GetFpsText() => $"FPS: {Math.Round(ViewModel.CurrentFps, 1)}";
+
+    private string GetLivesText()
+    {
+        string hearts = "";
+        for (int i = 0; i < ViewModel.Lives; i++)
+        {
+            if (i > 0) hearts += "  ";
+            hearts += "❤";
+        }
+        return hearts;
+    }
+
+    private void TogglePause()
+    {
+        ViewModel.TogglePause();
+    }
+
+    private void OnKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "ArrowLeft":
+                ViewModel.SetMoveLeft(true);
+                break;
+            case "ArrowRight":
+                ViewModel.SetMoveRight(true);
+                break;
+            case " ":
+                ViewModel.SetShoot(true);
+                break;
+            case "r":
+            case "R":
+                ViewModel.Restart();
+                break;
+        }
+    }
+
+    private void OnKeyUp(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "ArrowLeft":
+                ViewModel.SetMoveLeft(false);
+                break;
+            case "ArrowRight":
+                ViewModel.SetMoveRight(false);
+                break;
+            case " ":
+                ViewModel.SetShoot(false);
+                break;
+        }
+    }
+
+    private void HandleStateChanged()
+    {
+    }
+
+    public void Dispose()
+    {
+        _isDisposed = true;
+        ViewModel.OnStateChanged -= HandleStateChanged;
+    }
+}

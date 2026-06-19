@@ -4,14 +4,9 @@ using System.Linq;
 using System.Runtime.Versioning;
 using SkiaSharp;
 using SkiaSharp.Views.Blazor;
-using System.Collections.Generic;
-using System.Linq;
-using SkiaSharp;
-using SkiaSharp.Views.Blazor;
 
 namespace AmatoFluent.ViewModels
 {
-    [SupportedOSPlatform("browser")]
     public class BouncingBallsViewModel : IDisposable
     {
         public List<Ball> Balls { get; private set; } = new List<Ball>();
