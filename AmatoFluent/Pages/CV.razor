@@ -104,6 +104,19 @@ else
         </FluentCard>
 
         <FluentCard AreaRestricted="false">
+            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Technical Skills</FluentLabel>
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 15px;">
+                @foreach(var skill in cvData.TechnicalSkills)
+                {
+                    <div style="flex: 1 1 calc(50% - 15px); min-width: 200px;">
+                        <FluentLabel Typo="Typography.H4">@skill.Category</FluentLabel>
+                        <FluentLabel Typo="Typography.Body" Color="Color.Neutral">@skill.Details</FluentLabel>
+                    </div>
+                }
+            </div>
+        </FluentCard>
+
+        <FluentCard AreaRestricted="false">
             <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">University Projects</FluentLabel>
             <ul style="margin-top: 15px; line-height: 1.6;">
                 @foreach(var uprog in cvData.UniversityProjects)
@@ -150,4 +163,3 @@ else
         cvData = await Http.GetFromJsonAsync<CvData>("sample-data/cv-data.json");
     }
 }
-
