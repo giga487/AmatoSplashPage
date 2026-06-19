@@ -25,7 +25,8 @@
         "advanced analysis, testing and implementation of a real-time SCADA system.",
         "Design pattern and Documentation.",
         "OPC-UA, OPC-DA and ABB Plc's environment",
-        "custom in-memory database (IMDB) for real-time dispatch of data in C#"
+        "custom in-memory database (IMDB) for real-time dispatch of data in C#",
+        "Kafka Producer/Kafka Provider and MCP Server with AI"
       ]
     },
     {
