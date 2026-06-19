@@ -111,6 +111,14 @@
     {
       "Category": "Lab Tools",
       "Details": ""
+    },
+    {
+      "Category": "Messaging Systems",
+      "Details": "Kafka - Developed a custom provider and producer for message queuing and stream processing"
+    },
+    {
+      "Category": "Artificial Intelligence",
+      "Details": "Working on creating an MCP (Model Control Protocol) server to enable seamless interfacing between our applications and AI systems"
     }
   ],
   "Projects": [
