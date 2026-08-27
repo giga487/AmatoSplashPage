@@ -4,13 +4,14 @@
 <PageTitle>Ascii Art Cube</PageTitle>
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="20" HorizontalAlignment="HorizontalAlignment.Center" Style="margin-top: 50px; text-align: center; width: 100%;">
+    <a class="back-to-demos" href="demos">Back to demos</a>
     <FluentLabel Typo="Typography.PageTitle" Weight="FontWeight.Bold">Dynamic ASCII Cube</FluentLabel>
     <FluentLabel Typo="Typography.H4">
         A rotating 3D cube rendered in real-time using C# inside Blazor WASM.
     </FluentLabel>
     
-    <div style="margin-top: 20px; background-color: #0d0d0d; color: #00ff00; padding: 20px; overflow: hidden; text-align: left; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
-        <pre style="font-family: 'Consolas', 'Courier New', monospace; font-size: 14px; line-height: 14px; margin: 0; min-width: 650px; min-height: 380px; font-weight: bold;">
+    <div class="ascii-viewport">
+        <pre class="ascii-frame">
 @asciiFrame
         </pre>
     </div>

@@ -10,7 +10,7 @@
 }
 else
 {
-    <FluentStack Orientation="Orientation.Vertical" VerticalGap="20" Style="padding: 20px;">
+    <FluentStack Class="cv-page" Orientation="Orientation.Vertical" VerticalGap="20">
         
         <FluentLabel Typo="Typography.PageTitle">Pierluigi Amato</FluentLabel>
         <FluentLabel Typo="Typography.H4">Curriculum Vitae</FluentLabel>
@@ -31,7 +31,7 @@ else
                     <FluentIcon Value="@(new Icons.Regular.Size20.Location())" Color="Color.Neutral" /> 
                     <span style="color: var(--neutral-foreground-rest);">@cvData.Contact.Location</span>
                 </div>
-                <div style="margin-top: 5px; display: flex; gap: 10px;">
+                <div class="cv-downloads">
                     <FluentAnchor Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/AmatoFluent/wwwroot/AmatoCV.pdf" Download="amatocv.pdf" Appearance="Appearance.Accent" Target="_blank">
                         <FluentIcon Value="@(new Icons.Regular.Size20.DocumentPdf())" Slot="start" Color="Color.Lightweight" /> Download PDF
                     </FluentAnchor>

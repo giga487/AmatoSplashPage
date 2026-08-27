@@ -12,10 +12,13 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
     {
         private const int InvaderCols = 15;
         private const int InvaderRows = 8;
+        private const float InvaderWidth = 30f;
+        private const float InvaderHeight = 25f;
         private const float InvaderSpacingX = 45f;
         private const float InvaderSpacingY = 40f;
-        private const float InvaderStartX = 30f;
         private const float InvaderStartY = 100f;
+        private const float InvaderSideMargin = 15f;
+        private const float InvaderPlayerGap = 45f;
         private const float InvaderMoveStep = 12f;
         private const float InvaderDropStep = 20f;
         private const float PlayerBulletCooldownMs = 400f;
@@ -42,14 +45,15 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
         private float _elapsedMs = 0f;
 
         private bool _isInitialized = false;
+        private int _initializedCanvasWidth;
+        private int _initializedCanvasHeight;
+        private int _invaderTotalCount;
         private SkiaBoxDrawable? _overlayBox;
 
         private DateTime _lastFrameTime = DateTime.Now;
         private Queue<double> _frameTimes = new Queue<double>(100);
         private double _currentFps = 0;
         public double CurrentFps => _currentFps;
-
-        public event Action? OnStateChanged;
 
         public void SetMoveLeft(bool active) { _moveLeft = active; }
         public void SetMoveRight(bool active) { _moveRight = active; }
@@ -69,7 +73,11 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             int canvasWidth = (int)Scene.CanvasWidth;
             int canvasHeight = (int)Scene.CanvasHeight;
 
-            if (!_isInitialized && canvasWidth > 0 && canvasHeight > 0)
+            if (canvasWidth > 0
+                && canvasHeight > 0
+                && (!_isInitialized
+                    || canvasWidth != _initializedCanvasWidth
+                    || canvasHeight != _initializedCanvasHeight))
             {
                 InitializeGame(canvasWidth, canvasHeight);
             }
@@ -101,21 +109,21 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
                 if (IsPaused)
                 {
                     _overlayBox.Text = "PAUSED";
-                    _overlayBox.SubText = "Press Pause to resume";
+                    _overlayBox.SubText = "Use Pause to resume";
                     _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(30, 80, 160) };
                     _overlayBox.IsVisible = true;
                 }
                 else if (IsGameOver)
                 {
                     _overlayBox.Text = "GAME OVER";
-                    _overlayBox.SubText = "Press R to restart";
+                    _overlayBox.SubText = "Use Restart to play again";
                     _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(180, 20, 20) };
                     _overlayBox.IsVisible = true;
                 }
                 else if (IsWon)
                 {
                     _overlayBox.Text = "YOU WIN!";
-                    _overlayBox.SubText = "Press R to restart";
+                    _overlayBox.SubText = "Use Restart to play again";
                     _overlayBox.Font = new SkiaFontConfig { Size = 48f, Color = new SKColor(20, 130, 20) };
                     _overlayBox.IsVisible = true;
                 }
@@ -135,8 +143,9 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             _bullets.Clear();
 
             if (_overlayBox != null) Scene.RemoveObject(_overlayBox);
-            float boxWidth = 420f;
-            float boxHeight = 160f;
+            float boxWidth = Math.Min(420f, Math.Max(0f, canvasWidth - 32f));
+            float boxHeight = Math.Min(160f, Math.Max(0f, canvasHeight - 32f));
+            float overlayFontSize = canvasWidth < 480 ? 32f : 48f;
             _overlayBox = new SkiaBoxDrawable(
                 x: (canvasWidth - boxWidth) / 2f,
                 y: (canvasHeight - boxHeight) / 2f,
@@ -144,7 +153,7 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
                 width: boxWidth,
                 height: boxHeight,
                 text: "",
-                font: new SkiaFontConfig { Size = 48f, Color = SKColors.Black },
+                font: new SkiaFontConfig { Size = overlayFontSize, Color = SKColors.Black },
                 background: new SkiaBackgroundConfig
                 {
                     Color = new SKColor(160, 160, 160, 255),
@@ -161,11 +170,22 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             _player = new PlayerShip(canvasWidth / 2f - 20f, canvasHeight - 70f);
             Scene.AddObject(_player);
 
-            for (int row = 0; row < InvaderRows; row++)
+            int invaderColumns = Math.Clamp(
+                (int)Math.Floor((canvasWidth - (2 * InvaderSideMargin) - InvaderWidth) / InvaderSpacingX) + 1,
+                4,
+                InvaderCols);
+            int invaderRows = Math.Clamp(
+                (int)Math.Floor((_player.Y - InvaderPlayerGap - InvaderStartY - InvaderHeight) / InvaderSpacingY) + 1,
+                4,
+                InvaderRows);
+            float formationWidth = ((invaderColumns - 1) * InvaderSpacingX) + InvaderWidth;
+            float invaderStartX = (canvasWidth - formationWidth) / 2f;
+
+            for (int row = 0; row < invaderRows; row++)
             {
-                for (int col = 0; col < InvaderCols; col++)
+                for (int col = 0; col < invaderColumns; col++)
                 {
-                    float invaderX = InvaderStartX + col * InvaderSpacingX;
+                    float invaderX = invaderStartX + col * InvaderSpacingX;
                     float invaderY = InvaderStartY + row * InvaderSpacingY;
                     Invader invader = new Invader(invaderX, invaderY, row, col);
                     _invaders.Add(invader);
@@ -174,6 +194,9 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             }
 
             _isInitialized = true;
+            _initializedCanvasWidth = canvasWidth;
+            _initializedCanvasHeight = canvasHeight;
+            _invaderTotalCount = invaderColumns * invaderRows;
             Score = 0;
             Lives = 3;
             IsGameOver = false;
@@ -184,6 +207,9 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
             _invaderMoveInterval = 20;
             _elapsedMs = 0f;
             _lastPlayerShootMs = 0f;
+            _moveLeft = false;
+            _moveRight = false;
+            _shootPressed = false;
         }
 
         private void MovePlayer(int canvasWidth)
@@ -265,8 +291,7 @@ namespace AmatoFluent.ViewModels.SpaceInvaders
                 }
 
                 int remaining = activeInvaders.Count;
-                int total = InvaderCols * InvaderRows;
-                _invaderMoveInterval = Math.Max(4, 20 - (total - remaining) / 2);
+                _invaderMoveInterval = Math.Max(4, 20 - (_invaderTotalCount - remaining) / 2);
             }
             else
             {

@@ -5,65 +5,110 @@
 
 <PageTitle>Space Invaders</PageTitle>
 
-<div @ref="_gameDiv"
-     tabindex="0"
-     style="width: 100%; height: 85vh; min-height: 500px; outline: none;"
-     @onkeydown="OnKeyDown"
-     @onkeyup="OnKeyUp"
-     @onkeydown:preventDefault
-     @onkeyup:preventDefault>
+<div class="space-invaders-page">
+    <a class="back-to-demos" href="demos">Back to demos</a>
 
-    <SkiaCanvas ExternalScene="ViewModel.Scene"
-                OnBeforeRender="ViewModel.UpdateFrame"
-                OnAfterRender="ViewModel.DrawHUD"
-                BackgroundColor="SKColors.Black"
-                Style="width: 100%; height: 100%;">
-        <SkiaHeader Height="36" BackgroundColor="@(new SKColor(100, 100, 100))">
-            <SkiaLabel Text="I'm thinking about a simple SkiaSharp framework example to make a fast rendered component viewer."
-                       Alignment="ButtonAlignment.Left"
-                       Padding="14"
-                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 14f })" />
-        </SkiaHeader>
-        <SkiaBar Y="36" Height="48" BackgroundColor="SKColors.DarkRed">
-            <SkiaLabel GetText="GetScoreText"
-                       Alignment="ButtonAlignment.Left"
-                       Padding="14" />
-            <SkiaLabel GetText="GetLivesText"
-                       Alignment="ButtonAlignment.Center"
-                       Font="@(new SkiaFontConfig { Color = SkiaSharp.SKColors.Tomato, Size = 22f, Family = "Segoe UI Symbol" })" />
-            <SkiaButton Text="Pause"
-                        Alignment="ButtonAlignment.Right"
-                        Width="80" Height="34"
-                        Padding="10"
-                        OnClick="TogglePause" />
-        </SkiaBar>
-        
+    <div @ref="_gameDiv"
+         class="game-viewport"
+         tabindex="0"
+         @onkeydown="OnKeyDown"
+         @onkeyup="OnKeyUp"
+         @onkeydown:preventDefault
+         @onkeyup:preventDefault>
 
-        <SkiaFooter Height="28" BackgroundColor="@(new SKColor(100, 100, 100))">
-            <SkiaLabel Text="Abused of Claude Code, SkiaSharp, C# and Blazor"
-                       Alignment="ButtonAlignment.Left"
-                       Padding="14"
-                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
-            <SkiaLabel Text="Arrow keys to move  |  Space to shoot  |  R to restart"
-                       Alignment="ButtonAlignment.Center"
-                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
-            <SkiaLabel GetText="GetFpsText"
-                       Alignment="ButtonAlignment.Right"
-                       Padding="14"
-                       Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
-        </SkiaFooter>
-    </SkiaCanvas>
+        <SkiaCanvas ExternalScene="ViewModel.Scene"
+                    OnBeforeRender="ViewModel.UpdateFrame"
+                    OnAfterRender="ViewModel.DrawHUD"
+                    BackgroundColor="SKColors.Black"
+                    MinimumLogicalWidth="800"
+                    Style="width: 100%; height: 100%;">
+            <SkiaHeader Height="36" BackgroundColor="@(new SKColor(100, 100, 100))">
+                <SkiaLabel Text="I'm thinking about a simple SkiaSharp framework example to make a fast rendered component viewer."
+                           Alignment="ButtonAlignment.Left"
+                           Padding="14"
+                           Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 14f })" />
+            </SkiaHeader>
+            <SkiaBar Y="36" Height="48" BackgroundColor="SKColors.DarkRed">
+                <SkiaLabel GetText="GetScoreText"
+                           Alignment="ButtonAlignment.Left"
+                           Padding="14" />
+                <SkiaLabel GetText="GetLivesText"
+                           Alignment="ButtonAlignment.Center"
+                           Font="@(new SkiaFontConfig { Color = SkiaSharp.SKColors.Tomato, Size = 22f, Family = "Segoe UI Symbol" })" />
+                <SkiaButton Text="Pause"
+                            Alignment="ButtonAlignment.Right"
+                            Width="80" Height="34"
+                            Padding="10"
+                            OnClick="TogglePause" />
+            </SkiaBar>
+
+            <SkiaFooter Height="28" BackgroundColor="@(new SKColor(100, 100, 100))">
+                <SkiaLabel Text="Built with SkiaSharp, C#, and Blazor"
+                           Alignment="ButtonAlignment.Left"
+                           Padding="14"
+                           Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+                <SkiaLabel Text="Arrow keys to move  |  Space to shoot  |  R to restart"
+                           Alignment="ButtonAlignment.Center"
+                           Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+                <SkiaLabel GetText="GetFpsText"
+                           Alignment="ButtonAlignment.Right"
+                           Padding="14"
+                           Font="@(new SkiaFontConfig { Color = SKColors.White, Size = 13f })" />
+            </SkiaFooter>
+        </SkiaCanvas>
+    </div>
+
+    <div class="mobile-game-controls" aria-label="Touch game controls">
+        <div class="mobile-game-primary">
+            <button type="button"
+                    class="game-control"
+                    aria-label="Move left"
+                    @onpointerdown="@(() => ViewModel.SetMoveLeft(true))"
+                    @onpointerup="@(() => ViewModel.SetMoveLeft(false))"
+                    @onpointercancel="@(() => ViewModel.SetMoveLeft(false))"
+                    @onpointerleave="@(() => ViewModel.SetMoveLeft(false))"
+                    @onpointerdown:preventDefault
+                    @oncontextmenu:preventDefault>
+                Left
+            </button>
+            <button type="button"
+                    class="game-control game-control-fire"
+                    aria-label="Fire"
+                    @onpointerdown="@(() => ViewModel.SetShoot(true))"
+                    @onpointerup="@(() => ViewModel.SetShoot(false))"
+                    @onpointercancel="@(() => ViewModel.SetShoot(false))"
+                    @onpointerleave="@(() => ViewModel.SetShoot(false))"
+                    @onpointerdown:preventDefault
+                    @oncontextmenu:preventDefault>
+                Fire
+            </button>
+            <button type="button"
+                    class="game-control"
+                    aria-label="Move right"
+                    @onpointerdown="@(() => ViewModel.SetMoveRight(true))"
+                    @onpointerup="@(() => ViewModel.SetMoveRight(false))"
+                    @onpointercancel="@(() => ViewModel.SetMoveRight(false))"
+                    @onpointerleave="@(() => ViewModel.SetMoveRight(false))"
+                    @onpointerdown:preventDefault
+                    @oncontextmenu:preventDefault>
+                Right
+            </button>
+        </div>
+        <div class="mobile-game-secondary">
+            <button type="button"
+                    class="game-control game-control-secondary"
+                    aria-pressed="@ViewModel.IsPaused.ToString().ToLowerInvariant()"
+                    @onclick="TogglePause">
+                @(ViewModel.IsPaused ? "Resume" : "Pause")
+            </button>
+            <button type="button" class="game-control game-control-secondary" @onclick="ViewModel.Restart">Restart</button>
+        </div>
+    </div>
 </div>
 
 
 @code {
     private ElementReference _gameDiv;
-    private bool _isDisposed = false;
-
-    protected override void OnInitialized()
-    {
-        ViewModel.OnStateChanged += HandleStateChanged;
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -128,13 +173,10 @@
         }
     }
 
-    private void HandleStateChanged()
-    {
-    }
-
     public void Dispose()
     {
-        _isDisposed = true;
-        ViewModel.OnStateChanged -= HandleStateChanged;
+        ViewModel.SetMoveLeft(false);
+        ViewModel.SetMoveRight(false);
+        ViewModel.SetShoot(false);
     }
 }
