@@ -18,7 +18,7 @@
         <p class="terminal-prompt" aria-hidden="true">&gt; <span class="terminal-cursor">_</span></p>
     </div>
     <footer class="terminal-footer">
-        <span>07 ENTRIES</span>
+        <span>@Skills.Length.ToString("D2") ENTRIES</span>
         <div class="terminal-controls">
             <button type="button" aria-label="@(_paused ? "Resume skills animation" : "Pause skills animation")" aria-pressed="@_paused.ToString().ToLowerInvariant()" @onclick="@(() => _paused = !_paused)">@(_paused ? "Resume" : "Pause")</button>
             <button type="button" aria-label="Replay skills animation" @onclick="Replay">Replay</button>
@@ -27,7 +27,7 @@
 </section>
 
 @code {
-    private static readonly string[] Skills = ["C#", ".NET", "Containers", "Docker", "Databases", "Blazor", "React"];
+    private static readonly string[] Skills = ["C#", ".NET", "Containers", "Docker", "Databases", "Blazor", "React", "CI/CD", "Jenkins", "Gitea"];
     private bool _paused;
     private int _iteration;
 

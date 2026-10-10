@@ -41,7 +41,7 @@
 }
 .terminal-command { margin: 0.5rem 0; color: #a1b6a7; }
 .terminal-skills { list-style: none; padding: 0; margin: 0; }
-.terminal-skills li { min-height: 22px; }
+.terminal-skills li { display: flex; align-items: center; min-height: 18px; }
 .skill-line {
     display: inline-block;
     width: 100%;
