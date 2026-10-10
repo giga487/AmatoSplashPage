@@ -1,18 +1,46 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Pierluigi Amato — Software Engineer</PageTitle>
 
-<FluentStack Orientation="Orientation.Vertical" VerticalGap="20" HorizontalAlignment="HorizontalAlignment.Center" Style="margin-top: 50px; text-align: center;">
-    <FluentLabel Typo="Typography.PageTitle" Weight="FontWeight.Bold">Pierluigi Amato</FluentLabel>
-    <FluentLabel Typo="Typography.H4">Software Engineer</FluentLabel>
-    <FluentDivider />
-    
-    <FluentLabel Typo="Typography.Body">
-        Right now, I'm testing Blazor WASM with Fluent UI by building a site that displays my auto-generated CV from a GitHub repository.
-    </FluentLabel>
-
-    <FluentAnchor Href="mailto:amato.pierluigi@gmail.com?subject=AskSomethingViaSite" Appearance="Appearance.Accent">
-        <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Slot="start" Color="Color.Lightweight" />
-        Send me an email
-    </FluentAnchor>
-</FluentStack>
+<div class="portfolio-home">
+    <section class="intro" aria-labelledby="intro-title">
+        <p class="eyebrow">Software engineer · Tuscany, Italy</p>
+        <h1 id="intro-title">Pierluigi Amato<span aria-hidden="true">.</span></h1>
+        <div class="intro-grid">
+        <div>
+        <p class="intro-lead">From real-time systems<br class="desktop-break" /> to the web.</p>
+        <p class="intro-description">I build software for automation, connected systems, and the web. My work brings together C#, real-time programming, and a curiosity for how things work.</p>
+        <div class="intro-actions">
+            <a class="primary-link" href="cv">Explore my CV <span aria-hidden="true">↗</span></a>
+            <a class="contact-link" href="mailto:amato.pierluigi@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
+        </div>
+        </div>
+        <SkillsTerminal />
+        </div>
+    </section>
+    <section class="profile-section" aria-labelledby="current-title">
+        <h2 id="current-title">Currently</h2>
+        <div>
+            <p class="section-lead">Software Engineer at Fincantieri NexTech</p>
+            <p>As team leader, I work with my colleagues to develop <strong>a cross-platform suite of web applications for maritime automation</strong>. The suite brings together containerized services and <strong>automation data dispatch in a soft real-time environment</strong>, with configurable user interfaces for managing naval features.</p>
+            <ul class="skill-tags" aria-label="Areas of work">
+                <li>Team leadership</li>
+                <li>.NET &amp; WebAssembly</li>
+                <li>Cross-platform web applications</li>
+                <li>Containerization</li>
+                <li>Soft real-time data dispatch</li>
+                <li>Configurable interfaces</li>
+                <li>Naval features</li>
+                <li>OAuth</li>
+            </ul>
+        </div>
+    </section>
+    <section class="profile-section" aria-labelledby="experiments-title">
+        <h2 id="experiments-title">On the side</h2>
+        <div>
+            <p class="section-lead">Small experiments. Hands-on learning.</p>
+            <p>A rotating ASCII cube, a physics playground, and a playable Space Invaders. Exploring graphics and interaction with C#, Blazor, and SkiaSharp.</p>
+            <a class="experiment-link" href="demos">Explore the demos <span aria-hidden="true">→</span></a>
+        </div>
+    </section>
+</div>

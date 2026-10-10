@@ -1,27 +1,23 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
 
-<FluentLayout>
-    <FluentHeader>
-        Amato Page
-    </FluentHeader>
-    <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
+<div class="portfolio-shell">
+    <a class="skip-link" href="@(Navigation.Uri.Split('#')[0] + "#main-content")">Skip to content</a>
+    <header class="portfolio-header">
+        <a class="wordmark" href="" aria-label="Pierluigi Amato, home">Pierluigi Amato<span aria-hidden="true">.</span></a>
         <NavMenu />
-        <FluentBodyContent Class="body-content">
-            <ErrorBoundary>
-                <ChildContent>
-                    <div class="content">
-                        @Body
-                    </div>
-                </ChildContent>
-                <ErrorContent Context="ex">
-                    <div class="blazor-error-boundary">@ex.Message</div>
-                </ErrorContent>
-            </ErrorBoundary>
-        </FluentBodyContent>
-    </FluentStack>
-    <FluentFooter>
-        <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
-        <FluentSpacer />
-        <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
-    </FluentFooter>
-</FluentLayout>
+    </header>
+    <main id="main-content" class="portfolio-content" tabindex="-1">
+        <ErrorBoundary>
+            <ChildContent>@Body</ChildContent>
+            <ErrorContent Context="ex">
+                <div class="blazor-error-boundary">@ex.Message</div>
+            </ErrorContent>
+        </ErrorBoundary>
+    </main>
+    <footer class="portfolio-footer">
+        <span>Software, systems, and a little experimentation.</span>
+        <a href="https://github.com/giga487" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+    </footer>
+    <NavigationToasts />
+</div>

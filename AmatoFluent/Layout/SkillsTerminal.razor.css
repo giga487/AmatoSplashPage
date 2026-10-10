@@ -1,0 +1,96 @@
+.skills-terminal {
+    width: 100%;
+    max-width: 360px;
+    min-width: 0;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid #33453b;
+    border-radius: 14px;
+    background: #18211c;
+    color: #c6ddcc;
+    box-shadow: 0 8px 24px rgb(24 33 28 / 0.08);
+    font: 0.75rem/1.5 Consolas, "Cascadia Mono", "Courier New", monospace;
+    color-scheme: dark;
+}
+.terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px dashed #415548;
+    color: #a1b6a7;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+}
+.terminal-header h2 { margin: 0; font: inherit; font-weight: 600; }
+.terminal-screen { padding: 0.625rem 0 0; }
+.ascii-heading {
+    margin: 0;
+    color: #90b49b;
+    font: inherit;
+    font-size: clamp(0.625rem, 2.5vw, 0.75rem);
+    line-height: 1;
+    white-space: pre;
+    overflow: visible;
+}
+.terminal-command { margin: 0.5rem 0; color: #a1b6a7; }
+.terminal-skills { list-style: none; padding: 0; margin: 0; }
+.terminal-skills li { min-height: 19px; }
+.skill-line {
+    display: inline-block;
+    white-space: pre;
+    animation: type-line 500ms steps(25, end) both;
+    animation-delay: calc(350ms + var(--row) * 230ms);
+}
+.skill-line span { color: #a6e2b7; }
+.terminal-prompt { margin: 0.25rem 0; color: #a6e2b7; }
+.terminal-cursor { animation: cursor-blink 800ms steps(1, end) 4; }
+.paused .skill-line, .paused .terminal-cursor { animation-play-state: paused; }
+.terminal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0;
+    border-top: 1px dashed #415548;
+    background: transparent;
+    color: #a1b6a7;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+}
+.terminal-controls { display: flex; gap: 0.25rem; }
+.terminal-controls button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 0.375rem;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #c6ddcc;
+    font: inherit;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.terminal-controls button:focus-visible { outline: 2px solid #a6e2b7; outline-offset: -2px; }
+.terminal-controls button:active { background: #2d3e33; }
+@media (hover: hover) and (pointer: fine) {
+    .terminal-controls button:hover { background: #2d3e33; }
+}
+@keyframes type-line {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0); }
+}
+@keyframes cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .skill-line, .terminal-cursor { animation: none; }
+    .terminal-controls { display: none; }
+    .terminal-footer { min-height: 44px; }
+}

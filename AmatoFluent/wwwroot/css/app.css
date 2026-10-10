@@ -1,11 +1,20 @@
 @import '_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
+:root {
+    --portfolio-ink: #202020;
+    --portfolio-muted: #606060;
+    --portfolio-line: #e5e5e5;
+    --portfolio-soft: #f3f3f3;
+    --portfolio-accent: #3657c5;
+}
+
 body {
     --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
     font-family: var(--body-font);
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
     margin: 0;
+    background: #fcfcfc;
 }
 
 .navmenu-icon {
@@ -114,10 +123,17 @@ body {
     font-weight: 600;
 }
 
-.demo-link:hover .demo-card {
-    border-color: var(--accent-fill-rest);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .demo-link:hover .demo-card {
+        border-color: var(--accent-fill-rest);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-card { transition: border-color 150ms ease, box-shadow 150ms ease; }
+    .demo-link:hover .demo-card { transform: none; }
 }
 
 .demo-link:focus-visible {

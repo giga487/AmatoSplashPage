@@ -1,0 +1,12 @@
+.portfolio-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.portfolio-nav ::deep a {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 1rem; border-radius: 8px;
+    color: var(--portfolio-muted); font-size: 0.875rem; text-decoration: none;
+    transition: color 150ms ease, background-color 150ms ease;
+}
+.portfolio-nav ::deep a.active { color: var(--portfolio-ink); background: var(--portfolio-soft); font-weight: 600; }
+.portfolio-nav ::deep a:focus-visible { outline: 2px solid var(--portfolio-accent); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-nav ::deep a:hover { color: var(--portfolio-ink); background: var(--portfolio-soft); }
+}

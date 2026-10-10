@@ -1,0 +1,125 @@
+@using Microsoft.AspNetCore.Components.Routing
+@using System.Diagnostics
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<div class="live-announcement" role="status" aria-live="polite" aria-atomic="true">@_announcement</div>
+@if (_notices.Count > 0)
+{
+    <aside class="notification-region" aria-label="Notifications"
+           style="--count: @_notices.Count"
+           @onmouseenter="@(() => _hovered = true)" @onmouseleave="@(() => _hovered = false)"
+           @onfocusin="@(() => _focused = true)" @onfocusout="@(() => _focused = false)">
+        <ol class="notification-stack">
+            @for (var index = 0; index < _notices.Count; index++)
+            {
+                var notice = _notices[index];
+                <li @key="notice.Id" class="notice @notice.Kind.ToString().ToLowerInvariant()" style="--index: @index">
+                    <span class="notice-icon" aria-hidden="true">@(notice.Kind == NoticeKind.Success ? "✓" : notice.Kind == NoticeKind.Error ? "!" : "⚠")</span>
+                    <span class="notice-message">@notice.Message</span>
+                    <button type="button" class="notice-close" aria-label="@($"Dismiss notification: {notice.Message}")" @onclick="@(() => Dismiss(notice.Id))">×</button>
+                </li>
+            }
+        </ol>
+    </aside>
+}
+
+@code {
+    public enum NoticeKind { Success, Warning, Error }
+
+    private sealed class Notice(long id, string message, NoticeKind kind)
+    {
+        public long Id { get; } = id;
+        public string Message { get; } = message;
+        public NoticeKind Kind { get; } = kind;
+        public double RemainingMilliseconds { get; set; } = 4500;
+    }
+
+    private readonly List<Notice> _notices = [];
+    private readonly CancellationTokenSource _lifetime = new();
+    private string? _section;
+    private string _announcement = "";
+    private long _nextId;
+    private bool _hovered, _focused, _disposed;
+
+    protected override void OnInitialized()
+    {
+        _section = GetSection();
+        Navigation.LocationChanged += OnLocationChanged;
+        _ = ExpireNoticesAsync(_lifetime.Token);
+    }
+
+    private string? GetSection()
+    {
+        var path = Navigation.ToBaseRelativePath(Navigation.Uri).Split('?', '#')[0].Trim('/').ToLowerInvariant();
+        return path switch
+        {
+            "" => "Home",
+            "cv" => "CV",
+            "demos" or "asciiart" or "bouncingballs" or "space-invaders" => "Demos",
+            _ => null
+        };
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        _ = InvokeAsync(() =>
+        {
+            if (_disposed) return;
+            var section = GetSection();
+            if (section == _section) return;
+            _section = section;
+            if (section is not null) Show($"{section} opened");
+        });
+    }
+
+    // Other UI events can reuse the same stack for real warnings or errors.
+    public void Show(string message, NoticeKind kind = NoticeKind.Success)
+    {
+        if (_disposed) return;
+        _notices.Insert(0, new Notice(++_nextId, message, kind));
+        if (_notices.Count > 4) _notices.RemoveAt(_notices.Count - 1);
+        _announcement = message;
+        StateHasChanged();
+    }
+
+    private void Dismiss(long id)
+    {
+        _notices.RemoveAll(notice => notice.Id == id);
+        if (_notices.Count == 0) _hovered = _focused = false;
+    }
+
+    private async Task ExpireNoticesAsync(CancellationToken cancellation)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(250));
+        var previous = Stopwatch.GetTimestamp();
+        try
+        {
+            while (await timer.WaitForNextTickAsync(cancellation))
+            {
+                var now = Stopwatch.GetTimestamp();
+                var elapsed = Stopwatch.GetElapsedTime(previous, now).TotalMilliseconds;
+                previous = now;
+                await InvokeAsync(() =>
+                {
+                    if (_disposed || _hovered || _focused) return;
+                    foreach (var notice in _notices) notice.RemainingMilliseconds -= elapsed;
+                    if (_notices.RemoveAll(notice => notice.RemainingMilliseconds <= 0) > 0)
+                    {
+                        if (_notices.Count == 0) _hovered = _focused = false;
+                        StateHasChanged();
+                    }
+                });
+            }
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested) { }
+    }
+
+    public void Dispose()
+    {
+        _disposed = true;
+        Navigation.LocationChanged -= OnLocationChanged;
+        _lifetime.Cancel();
+        _lifetime.Dispose();
+    }
+}

@@ -1,0 +1,41 @@
+<section class="skills-terminal @(_paused ? "paused" : "")" aria-labelledby="terminal-title">
+    <header class="terminal-header">
+        <h2 id="terminal-title">PROFILE.SYS</h2>
+        <span aria-hidden="true">[ ONLINE ]</span>
+    </header>
+    <div class="terminal-screen" @key="_iteration">
+        <pre class="ascii-heading" aria-hidden="true">+--------------------------+
+|       DEV / STACK        |
++--------------------------+</pre>
+        <p class="terminal-command" aria-hidden="true">&gt; load skills --all</p>
+        <ul class="terminal-skills" aria-label="Technologies I work with">
+            @for (var index = 0; index < Skills.Length; index++)
+            {
+                var skill = Skills[index];
+                <li aria-label="@skill" style="--row: @index">
+                    <span class="skill-line" aria-hidden="true"><span>[+]</span> @skill.PadRight(14, '.') <span>[OK]</span></span>
+                </li>
+            }
+        </ul>
+        <p class="terminal-prompt" aria-hidden="true">&gt; <span class="terminal-cursor">_</span></p>
+    </div>
+    <footer class="terminal-footer">
+        <span>07 ENTRIES</span>
+        <div class="terminal-controls">
+            <button type="button" aria-label="@(_paused ? "Resume skills animation" : "Pause skills animation")" aria-pressed="@_paused.ToString().ToLowerInvariant()" @onclick="@(() => _paused = !_paused)">@(_paused ? "Resume" : "Pause")</button>
+            <button type="button" aria-label="Replay skills animation" @onclick="Replay">Replay</button>
+        </div>
+    </footer>
+</section>
+
+@code {
+    private static readonly string[] Skills = ["C#", ".NET", "Containers", "Docker", "Databases", "Blazor", "React"];
+    private bool _paused;
+    private int _iteration;
+
+    private void Replay()
+    {
+        _paused = false;
+        _iteration++;
+    }
+}
