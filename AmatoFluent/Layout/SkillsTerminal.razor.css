@@ -7,7 +7,7 @@
     flex-direction: column;
     padding: 1rem;
     border: 1px solid #33453b;
-    border-radius: 14px;
+    border-radius: 4px;
     background: #18211c;
     color: #c6ddcc;
     box-shadow: 0 8px 24px rgb(24 33 28 / 0.08);
@@ -35,12 +35,17 @@
     line-height: 1;
     white-space: pre;
     overflow: visible;
+    padding: 0.5rem 0;
+    border-top: 1px dashed #415548;
+    border-bottom: 1px dashed #415548;
 }
 .terminal-command { margin: 0.5rem 0; color: #a1b6a7; }
 .terminal-skills { list-style: none; padding: 0; margin: 0; }
-.terminal-skills li { min-height: 19px; }
+.terminal-skills li { min-height: 22px; }
 .skill-line {
     display: inline-block;
+    width: 100%;
+    color: #a6e2b7;
     white-space: pre;
     animation: type-line 500ms steps(25, end) both;
     animation-delay: calc(350ms + var(--row) * 230ms);

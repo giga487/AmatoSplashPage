@@ -4,16 +4,14 @@
         <span aria-hidden="true">[ ONLINE ]</span>
     </header>
     <div class="terminal-screen" @key="_iteration">
-        <pre class="ascii-heading" aria-hidden="true">+--------------------------+
-|       DEV / STACK        |
-+--------------------------+</pre>
+        <div class="ascii-heading" aria-hidden="true"><PixelText Text="DEV / STACK" PixelSize="3" /></div>
         <p class="terminal-command" aria-hidden="true">&gt; load skills --all</p>
         <ul class="terminal-skills" aria-label="Technologies I work with">
             @for (var index = 0; index < Skills.Length; index++)
             {
                 var skill = Skills[index];
                 <li aria-label="@skill" style="--row: @index">
-                    <span class="skill-line" aria-hidden="true"><span>[+]</span> @skill.PadRight(14, '.') <span>[OK]</span></span>
+                    <span class="skill-line" aria-hidden="true"><PixelText Text="@($"[+] {skill.PadRight(14, '.')} [OK]")" /></span>
                 </li>
             }
         </ul>

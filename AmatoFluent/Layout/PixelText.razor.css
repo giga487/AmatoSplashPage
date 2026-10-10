@@ -1,0 +1,6 @@
+.pixel-text {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    shape-rendering: crispEdges;
+}
