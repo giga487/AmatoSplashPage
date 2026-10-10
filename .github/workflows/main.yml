@@ -27,6 +27,22 @@ jobs:
       - name: Install WebAssembly Tools Workload
         run: dotnet workload install wasm-tools-net9
 
+      # Configure the entry page before publish so its offline integrity hash is valid.
+      - name: Configure GitHub Pages entry page
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          entry = Path("AmatoFluent/wwwroot/index.html")
+          html = entry.read_text()
+          html = html.replace('<base href="/" />', '<base href="/AmatoSplashPage/" />')
+          version = os.environ["GITHUB_SHA"]
+          for stylesheet in ("css/app.css", "AmatoFluent.styles.css"):
+              html = html.replace(f'href="{stylesheet}"', f'href="{stylesheet}?v={version}"')
+          entry.write_text(html)
+          PY
+
       # 1. Pubblica il progetto
       - name: Publish .NET Project
         run: dotnet publish AmatoFluent/AmatoFluent.csproj -c Release -o public
@@ -35,7 +51,6 @@ jobs:
       - name: Setup GitHub Pages Environment
         run: |
           touch public/wwwroot/.nojekyll
-          sed -i 's/<base href="\/" \/>/<base href="\/AmatoSplashPage\/" \/>/g' public/wwwroot/index.html
           cp public/wwwroot/index.html public/wwwroot/404.html
 
       # 3. Carica i file del sito come "artefatto"
