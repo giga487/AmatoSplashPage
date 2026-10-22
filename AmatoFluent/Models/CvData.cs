@@ -9,6 +9,7 @@ namespace AmatoFluent.Models
         public List<JobInfo> Jobs { get; set; } = new();
         public List<EducationInfo> Education { get; set; } = new();
         public List<SkillInfo> TechnicalSkills { get; set; } = new();
+        public List<OpenSourceContributionInfo> OpenSourceContributions { get; set; } = new();
         public List<ProjectInfo> Projects { get; set; } = new();
         public List<UniversityProjectInfo> UniversityProjects { get; set; } = new();
     }
@@ -41,6 +42,16 @@ namespace AmatoFluent.Models
     {
         public string Category { get; set; } = string.Empty;
         public string Details { get; set; } = string.Empty;
+    }
+
+    public class OpenSourceContributionInfo
+    {
+        public string Project { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+        public string Date { get; set; } = string.Empty;
     }
 
     public class ProjectInfo

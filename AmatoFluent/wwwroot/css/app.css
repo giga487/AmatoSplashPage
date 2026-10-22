@@ -9,9 +9,13 @@
 body {
     --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
     font-family: var(--body-font);
-    font-size: var(--type-ramp-base-font-size);
-    line-height: var(--type-ramp-base-line-height);
+    font-size: var(--fontSizeBase300);
+    line-height: var(--lineHeightBase300);
     margin: 0;
+    background: #fcfcfc;
+}
+
+body[data-theme="light"] {
     background: #fcfcfc;
 }
 
@@ -21,7 +25,7 @@ body {
 
 .main {
     min-height: calc(100dvh - 86px);
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
     align-items: stretch !important;
 }
 
@@ -111,19 +115,19 @@ body {
 .demo-card p {
     min-height: 4.5rem;
     margin: 0 0 1rem;
-    color: var(--neutral-foreground-hint);
+    color: var(--colorNeutralForeground2);
     line-height: 1.5;
 }
 
 .demo-card span,
 .back-to-demos {
-    color: var(--accent-foreground-rest);
+    color: var(--colorBrandForeground1);
     font-weight: 600;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .demo-link:hover .demo-card {
-        border-color: var(--accent-fill-rest);
+        border-color: var(--colorBrandBackground);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         transform: translateY(-2px);
     }
@@ -136,7 +140,7 @@ body {
 
 .demo-link:focus-visible {
     border-radius: 4px;
-    outline: 2px solid var(--accent-fill-focus);
+    outline: 2px solid var(--colorStrokeFocus2);
     outline-offset: 4px;
 }
 
@@ -176,7 +180,7 @@ body {
 }
 
 .game-viewport:focus-visible {
-    outline: 2px solid var(--accent-fill-focus);
+    outline: 2px solid var(--colorStrokeFocus2);
     outline-offset: 2px;
 }
 
@@ -185,14 +189,14 @@ body {
 }
 
 footer {
-    background: var(--neutral-layer-4);
-    color: var(--neutral-foreground-rest);
+    background: var(--colorNeutralBackground3);
+    color: var(--colorNeutralForeground1);
     align-items: center;
     padding: 10px 10px;
 }
 
     footer a {
-        color: var(--neutral-foreground-rest);
+        color: var(--colorNeutralForeground1);
         text-decoration: none;
     }
 
@@ -206,7 +210,7 @@ footer {
         }
 
 .alert {
-    border: 1px dashed var(--accent-fill-rest);
+    border: 1px dashed var(--colorBrandBackground);
     padding: 5px;
 }
 
@@ -314,7 +318,7 @@ code {
         align-items: stretch;
     }
 
-    .cv-downloads fluent-anchor {
+    .cv-downloads .fluent-anchor-button {
         width: 100%;
     }
 
@@ -380,9 +384,9 @@ code {
     .game-control {
         min-height: 56px;
         padding: 0.75rem;
-        color: var(--neutral-foreground-rest);
-        background: var(--neutral-fill-rest);
-        border: 1px solid var(--neutral-stroke-rest);
+        color: var(--colorNeutralForeground1);
+        background: var(--colorNeutralBackground1);
+        border: 1px solid var(--colorNeutralStroke1);
         border-radius: 8px;
         font: inherit;
         font-weight: 600;
@@ -392,8 +396,8 @@ code {
 
     .game-control-fire {
         color: white;
-        background: var(--accent-fill-rest);
-        border-color: var(--accent-fill-rest);
+        background: var(--colorBrandBackground);
+        border-color: var(--colorBrandBackground);
     }
 
     .game-control-secondary {

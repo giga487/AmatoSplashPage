@@ -25,7 +25,8 @@
         "advanced analysis, testing and implementation of a real-time SCADA system.",
         "Design pattern and Documentation.",
         "OPC-UA, OPC-DA and ABB Plc's environment",
-        "custom in-memory database (IMDB) for real-time dispatch of data in C#"
+        "custom in-memory database (IMDB) for real-time dispatch of data in C#",
+        "Kafka Producer/Kafka Provider and MCP Server with AI"
       ]
     },
     {
@@ -65,8 +66,7 @@
         "LabWindows/CVI",
         "Customer logistic supports",
         "Windows Provisioning (Power-Shell) and Unix bash scripts",
-        "Utilities software in C++ (QT) and C# console application.",
-        "Kafka Producer/Kafka Provider and MCP Server with AI"
+        "Utilities software in C++ (QT) and C# console application."
       ]
     },
     {
@@ -112,6 +112,24 @@
     {
       "Category": "Lab Tools",
       "Details": ""
+    },
+    {
+      "Category": "Messaging Systems",
+      "Details": "Kafka - Developed a custom provider and producer for message queuing and stream processing"
+    },
+    {
+      "Category": "Artificial Intelligence",
+      "Details": "Working on creating an MCP (Model Control Protocol) server to enable seamless interfacing between our applications and AI systems"
+    }
+  ],
+  "OpenSourceContributions": [
+    {
+      "Project": "Microsoft Fluent UI Blazor",
+      "Title": "FluentDataGrid virtualized refresh fix (PR #5488)",
+      "Description": "Fixed a rendering regression in FluentDataGrid: virtualized grids now re-render after RefreshDataAsync() even when the item count is unchanged. Added a regression test and marshalled the render update through Blazor's synchronization context.",
+      "Url": "https://github.com/microsoft/fluentui-blazor/pull/5488",
+      "Status": "Merged",
+      "Date": "21 October 2026"
     }
   ],
   "Projects": [

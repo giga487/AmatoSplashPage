@@ -6,45 +6,45 @@
 
 @if (cvData == null)
 {
-    <FluentProgressRing />
+    <FluentSpinner aria-label="Loading curriculum vitae" />
 }
 else
 {
     <FluentStack Class="cv-page" Orientation="Orientation.Vertical" VerticalGap="20">
         
-        <FluentLabel Typo="Typography.PageTitle">Pierluigi Amato</FluentLabel>
-        <FluentLabel Typo="Typography.H4">Curriculum Vitae</FluentLabel>
+        <FluentText Block="true" As="TextTag.H1" Size="TextSize.Size800">Pierluigi Amato</FluentText>
+        <FluentText Block="true" As="TextTag.Paragraph" Size="TextSize.Size500">Curriculum Vitae</FluentText>
         <FluentDivider />
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Contact</FluentLabel>
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Contact</FluentText>
             <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Color="Color.Neutral" /> 
-                    <a href="mailto:@cvData.Contact.Email?subject=AskSomethingViaSite" style="color: var(--accent-fill-rest); text-decoration: none;">@cvData.Contact.Email</a>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Color="Color.Default" />
+                    <a href="mailto:@cvData.Contact.Email?subject=AskSomethingViaSite" style="color: var(--colorBrandForeground1); text-decoration: none;">@cvData.Contact.Email</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Color="Color.Neutral" /> 
-                    <a href="@cvData.Contact.LinkedIn" target="_blank" style="color: var(--accent-fill-rest); text-decoration: none;">LinkedIn Profile</a>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Color="Color.Default" />
+                    <a href="@cvData.Contact.LinkedIn" target="_blank" style="color: var(--colorBrandForeground1); text-decoration: none;">LinkedIn Profile</a>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Location())" Color="Color.Neutral" /> 
-                    <span style="color: var(--neutral-foreground-rest);">@cvData.Contact.Location</span>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Location())" Color="Color.Default" />
+                    <span style="color: var(--colorNeutralForeground1);">@cvData.Contact.Location</span>
                 </div>
                 <div class="cv-downloads">
-                    <FluentAnchor Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/AmatoFluent/wwwroot/AmatoCV.pdf" Download="amatocv.pdf" Appearance="Appearance.Accent" Target="_blank">
-                        <FluentIcon Value="@(new Icons.Regular.Size20.DocumentPdf())" Slot="start" Color="Color.Lightweight" /> Download PDF
-                    </FluentAnchor>
-                    <FluentAnchor Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/cv-data.json" Download="cv-data.json" Appearance="Appearance.Neutral">
-                        <FluentIcon Value="@(new Icons.Regular.Size20.Document())" Slot="start" Color="Color.Neutral" /> Download JSON Data
-                    </FluentAnchor>
+                    <FluentAnchorButton Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/AmatoFluent/wwwroot/AmatoCV.pdf" download="amatocv.pdf" Appearance="ButtonAppearance.Primary" Target="LinkTarget.Blank" IconStart="@(new Icons.Regular.Size20.DocumentPdf())">
+                        Download PDF
+                    </FluentAnchorButton>
+                    <FluentAnchorButton Href="https://raw.githubusercontent.com/giga487/AmatoSplashPage/main/cv-data.json" download="cv-data.json" Appearance="ButtonAppearance.Outline" IconStart="@(new Icons.Regular.Size20.Document())">
+                        Download JSON Data
+                    </FluentAnchorButton>
                 </div>
             </div>
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Who am I</FluentLabel>
-            <div style="margin-top: 10px; line-height: 1.6; color: var(--neutral-foreground-rest);">
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Who am I</FluentText>
+            <div style="margin-top: 10px; line-height: 1.6; color: var(--colorNeutralForeground1);">
                 @foreach (var p in cvData.Summary)
                 {
                     <p>@((MarkupString)p.Replace("**Currently**", "<strong>Currently</strong>")
@@ -53,13 +53,13 @@ else
             </div>
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Jobs</FluentLabel>
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Jobs</FluentText>
             @foreach (var job in cvData.Jobs)
             {
                 <div style="margin-top: 15px;">
-                    <FluentLabel Typo="Typography.H4">@job.Title@(!string.IsNullOrEmpty(job.Company) ? $", {job.Company}" : "")</FluentLabel>
-                    <FluentLabel Typo="Typography.Body" Color="Color.Neutral">@job.Date</FluentLabel>
+                    <FluentText Block="true" As="TextTag.H3" Size="TextSize.Size500">@job.Title@(!string.IsNullOrEmpty(job.Company) ? $", {job.Company}" : "")</FluentText>
+                    <FluentText Block="true" Size="TextSize.Size300" Color="Color.Default">@job.Date</FluentText>
                     @if (job.Tasks != null && job.Tasks.Count > 0)
                     {
                         <ul style="margin-top: 5px;">
@@ -79,18 +79,36 @@ else
             }
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Education</FluentLabel>
+        @if (cvData.OpenSourceContributions.Count > 0)
+        {
+            <FluentCard>
+                <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Open-source contributions</FluentText>
+                @foreach (OpenSourceContributionInfo contribution in cvData.OpenSourceContributions)
+                {
+                    <article style="margin-top: 15px;">
+                        <FluentText Block="true" As="TextTag.H3" Size="TextSize.Size500">@contribution.Project</FluentText>
+                        <FluentText Block="true" Size="TextSize.Size300">@contribution.Status · @contribution.Date</FluentText>
+                        <p style="margin-top: 10px;">
+                            <a href="@contribution.Url" target="_blank" rel="noopener noreferrer">@contribution.Title</a>
+                        </p>
+                        <p>@contribution.Description</p>
+                    </article>
+                }
+            </FluentCard>
+        }
+
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Education</FluentText>
             <div style="margin-top: 10px;">
                 @foreach(var edu in cvData.Education)
                 {
                     <div style="margin-bottom: 15px;">
-                        <FluentLabel Typo="Typography.H4">
-                            <FluentIcon Value="@(new Icons.Regular.Size20.HatGraduation())" Style="margin-right: 5px;" Color="Color.Neutral" /> @edu.Title
-                        </FluentLabel>
+                        <FluentText Block="true" As="TextTag.H3" Size="TextSize.Size500">
+                            <FluentIcon Value="@(new Icons.Regular.Size20.HatGraduation())" Style="margin-right: 5px;" Color="Color.Default" /> @edu.Title
+                        </FluentText>
                         @if (!string.IsNullOrEmpty(edu.Date))
                         {
-                            <FluentLabel Typo="Typography.Body" Color="Color.Neutral">@edu.Date</FluentLabel>
+                            <FluentText Block="true" Size="TextSize.Size300" Color="Color.Default">@edu.Date</FluentText>
                         }
                         @if (!string.IsNullOrEmpty(edu.Description))
                         {
@@ -103,21 +121,21 @@ else
             </div>
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Technical Skills</FluentLabel>
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Technical Skills</FluentText>
             <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 15px;">
                 @foreach(var skill in cvData.TechnicalSkills)
                 {
                     <div style="flex: 1 1 calc(50% - 15px); min-width: 200px;">
-                        <FluentLabel Typo="Typography.H4">@skill.Category</FluentLabel>
-                        <FluentLabel Typo="Typography.Body" Color="Color.Neutral">@skill.Details</FluentLabel>
+                        <FluentText Block="true" As="TextTag.H3" Size="TextSize.Size500">@skill.Category</FluentText>
+                        <FluentText Block="true" Size="TextSize.Size300" Color="Color.Default">@skill.Details</FluentText>
                     </div>
                 }
             </div>
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">University Projects</FluentLabel>
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">University Projects</FluentText>
             <ul style="margin-top: 15px; line-height: 1.6;">
                 @foreach(var uprog in cvData.UniversityProjects)
                 {
@@ -130,8 +148,8 @@ else
             </ul>
         </FluentCard>
 
-        <FluentCard AreaRestricted="false">
-            <FluentLabel Typo="Typography.H2" Weight="FontWeight.Bold">Personal Projects</FluentLabel>
+        <FluentCard>
+            <FluentText Block="true" As="TextTag.H2" Size="TextSize.Size700" Weight="TextWeight.Semibold">Personal Projects</FluentText>
             <ul style="margin-top: 15px; line-height: 1.6;">
                 @foreach(var proj in cvData.Projects)
                 {

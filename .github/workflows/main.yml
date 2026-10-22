@@ -22,10 +22,10 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x # Usa la versione del tuo progetto
+          dotnet-version: 10.0.x
 
       - name: Install WebAssembly Tools Workload
-        run: dotnet workload install wasm-tools-net9
+        run: dotnet workload install wasm-tools
 
       # Configure the entry page before publish so its offline integrity hash is valid.
       - name: Configure GitHub Pages entry page

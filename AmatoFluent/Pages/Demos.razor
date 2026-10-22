@@ -4,14 +4,14 @@
 
 <section class="demos-page">
     <header class="demos-header">
-        <FluentLabel Typo="Typography.PageTitle" Weight="FontWeight.Bold">Demos</FluentLabel>
-        <FluentLabel Typo="Typography.H4">Small experiments built with C#, Blazor WebAssembly, and SkiaSharp.</FluentLabel>
+        <FluentText Block="true" As="TextTag.H1" Size="TextSize.Size800" Weight="TextWeight.Semibold" Align="TextAlign.Center">Demos</FluentText>
+        <FluentText Block="true" As="TextTag.Paragraph" Size="TextSize.Size500" Align="TextAlign.Center">Small experiments built with C#, Blazor WebAssembly, and SkiaSharp.</FluentText>
     </header>
 
     <div class="demo-grid">
         <a class="demo-link" href="AsciiArt">
-            <FluentCard Class="demo-card" AreaRestricted="false">
-                <FluentIcon Value="@(new Icons.Regular.Size20.Image())" Color="Color.Accent" />
+            <FluentCard Class="demo-card">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Image())" Color="Color.Primary" />
                 <h2>ASCII Cube</h2>
                 <p>A rotating 3D cube rendered in real time entirely in C#.</p>
                 <span>Open demo</span>
@@ -19,8 +19,8 @@
         </a>
 
         <a class="demo-link" href="bouncingballs">
-            <FluentCard Class="demo-card" AreaRestricted="false">
-                <FluentIcon Value="@(new Icons.Regular.Size20.Play())" Color="Color.Accent" />
+            <FluentCard Class="demo-card">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Play())" Color="Color.Primary" />
                 <h2>Bouncing Balls</h2>
                 <p>A responsive SkiaSharp animation driven by a Blazor view model.</p>
                 <span>Open demo</span>
@@ -28,8 +28,8 @@
         </a>
 
         <a class="demo-link" href="space-invaders">
-            <FluentCard Class="demo-card" AreaRestricted="false">
-                <FluentIcon Value="@(new Icons.Regular.Size20.Games())" Color="Color.Accent" />
+            <FluentCard Class="demo-card">
+                <FluentIcon Value="@(new Icons.Regular.Size20.Games())" Color="Color.Primary" />
                 <h2>Space Invaders</h2>
                 <p>A playable canvas demo with keyboard and touch controls.</p>
                 <span>Play game</span>

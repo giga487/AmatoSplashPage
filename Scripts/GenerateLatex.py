@@ -78,6 +78,21 @@ Cascina (PI), Tuscany, Italy\cvinfosep
 
     latex += "\\end{itemize}\n\n"
 
+    # Open-source contributions
+    contributions = data.get('OpenSourceContributions', [])
+    if contributions:
+        latex += "\\section{Open-source contributions}\n\\begingroup\\emergencystretch=1em\n\\begin{itemize}\n"
+        for contribution in contributions:
+            project = escape_latex(contribution['Project'])
+            title = escape_latex(contribution['Title'])
+            status = escape_latex(contribution['Status'])
+            date = escape_latex(contribution['Date'])
+            description = escape_latex(contribution['Description'])
+            url = contribution['Url']
+            latex += f"\\item \\textbf{{{project}}} - \\href{{{url}}}{{{title}}}\\\\\n"
+            latex += f"{status}, {date}. {description}\n"
+        latex += "\\end{itemize}\n\\endgroup\n\n"
+
     # Education
     latex += r""" 
 \section{Education}
