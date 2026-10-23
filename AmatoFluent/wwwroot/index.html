@@ -30,7 +30,11 @@
         <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <aside id="app-update" class="app-update" aria-label="Site update" hidden>
+        <span role="status">A new version is ready.</span>
+        <button id="app-update-button" type="button">Update and reload</button>
+    </aside>
+    <script src="app-updates.js"></script>
 </body>
 
 </html>

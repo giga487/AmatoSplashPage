@@ -5,6 +5,11 @@ self.importScripts('./service-worker-assets.js');
 self.addEventListener('install', event => event.waitUntil(onInstall(event)));
 self.addEventListener('activate', event => event.waitUntil(onActivate(event)));
 self.addEventListener('fetch', event => event.respondWith(onFetch(event)));
+self.addEventListener('message', event => {
+    if (event.data?.type === 'ACTIVATE_UPDATE') {
+        event.waitUntil(self.skipWaiting());
+    }
+});
 
 const cacheNamePrefix = 'offline-cache-';
 const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}`;
@@ -47,8 +52,10 @@ async function onFetch(event) {
 
         const request = shouldServeIndexHtml ? new URL('index.html', baseUrl).href : event.request;
         const cache = await caches.open(cacheName);
-        // CSS links carry a deployment version; the manifest caches their bare URLs.
-        cachedResponse = await cache.match(request, { ignoreSearch: event.request.destination === 'style' });
+        // Fluent UI imports modules with ?v=...; the manifest caches their bare URLs.
+        // Use this worker's own snapshot rather than mixing it with a newer deployment.
+        const isVersionedAsset = ['style', 'script'].includes(event.request.destination);
+        cachedResponse = await cache.match(request, { ignoreSearch: isVersionedAsset });
     }
 
     return cachedResponse || fetch(event.request);

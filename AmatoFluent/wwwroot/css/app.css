@@ -19,6 +19,45 @@ body[data-theme="light"] {
     background: #fcfcfc;
 }
 
+.app-update {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 1100;
+    box-sizing: border-box;
+    max-width: calc(100% - 2rem);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem;
+    color: var(--portfolio-ink);
+    background: white;
+    border: 1px solid var(--portfolio-line);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px #0002;
+}
+
+.app-update[hidden] {
+    display: none;
+}
+
+.app-update button {
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--portfolio-accent);
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.app-update button:focus-visible {
+    outline: 2px solid var(--portfolio-ink);
+    outline-offset: 3px;
+}
+
 .navmenu-icon {
     display: none;
 }
