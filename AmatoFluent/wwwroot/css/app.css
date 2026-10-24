@@ -15,6 +15,14 @@ body {
     background: #fcfcfc;
 }
 
+/* Fluent UI's default body is a fixed, non-scrolling app viewport.
+   This portfolio scrolls the document instead of an inner layout panel. */
+body.portfolio-body {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+}
+
 body[data-theme="light"] {
     background: #fcfcfc;
 }
